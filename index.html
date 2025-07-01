@@ -52,22 +52,21 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    #resumo {
-      margin-top: 20px;
+    .resumo, .btnWhats {
+      display: none;
+      margin-top: 15px;
+    }
+    .resumo {
       background: #e8f5e9;
       padding: 15px;
       border-radius: 8px;
       font-weight: bold;
       white-space: pre-line;
     }
-    #btnWhats {
-      display: none;
-      margin-top: 15px;
-    }
   </style>
 </head>
-<body>  <div class="container"><!-- Azulejos -->
-<div class="coluna">
+<body>  <div class="container"><!-- Produto Template -->
+<div class="coluna" id="produto-azulejo">
   <h2>Azulejos 20x20 - R$ 35,00</h2>
   <div class="galeria">
     <img src="https://i.postimg.cc/kgz0yDXP/IMG-20250701-081641.png" title="Com Foto">
@@ -80,10 +79,14 @@
   </select>
   <label>Quantidade:</label>
   <input type="number" id="qtdAzulejo" value="1" min="0">
+  <label>CEP de destino:</label>
+  <input type="text" id="cepAzulejo">
+  <button onclick="calcularFreteProduto('azulejo', 35)">Calcular Frete</button>
+  <div class="resumo" id="resumoAzulejo"></div>
+  <button class="btnWhats" id="btnAzulejo" onclick="enviarWhatsApp('azulejo')">Pedir pelo WhatsApp</button>
 </div>
 
-<!-- Placas MDF -->
-<div class="coluna">
+<div class="coluna" id="produto-mdf">
   <h2>Placa MDF A4 - R$ 17,00</h2>
   <div class="galeria">
     <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg" title="Com Foto">
@@ -96,10 +99,14 @@
   </select>
   <label>Quantidade:</label>
   <input type="number" id="qtdMDF" value="1" min="0">
+  <label>CEP de destino:</label>
+  <input type="text" id="cepMDF">
+  <button onclick="calcularFreteProduto('mdf', 17)">Calcular Frete</button>
+  <div class="resumo" id="resumoMDF"></div>
+  <button class="btnWhats" id="btnMDF" onclick="enviarWhatsApp('mdf')">Pedir pelo WhatsApp</button>
 </div>
 
-<!-- Quebra-Cabeça -->
-<div class="coluna">
+<div class="coluna" id="produto-puzzle">
   <h2>Quebra-Cabeça MDF 12 peças - R$ 24,00</h2>
   <p style="font-size: 14px; color: #555;">MDF 3mm. Pode ser personalizado com temas ou fotos.</p>
   <div class="galeria">
@@ -113,10 +120,14 @@
   </select>
   <label>Quantidade:</label>
   <input type="number" id="qtdPuzzle" value="1" min="0">
+  <label>CEP de destino:</label>
+  <input type="text" id="cepPuzzle">
+  <button onclick="calcularFreteProduto('puzzle', 24)">Calcular Frete</button>
+  <div class="resumo" id="resumoPuzzle"></div>
+  <button class="btnWhats" id="btnPuzzle" onclick="enviarWhatsApp('puzzle')">Pedir pelo WhatsApp</button>
 </div>
 
-<!-- Almofadinha -->
-<div class="coluna">
+<div class="coluna" id="produto-almofada">
   <h2>Almofadinha 20x20 - R$ 30,00</h2>
   <div class="galeria">
     <img src="https://i.postimg.cc/8PPdZHjL/IMG-20250701-082456.jpg" title="Com Foto">
@@ -129,31 +140,34 @@
   </select>
   <label>Quantidade:</label>
   <input type="number" id="qtdAlmofada" value="1" min="0">
+  <label>CEP de destino:</label>
+  <input type="text" id="cepAlmofada">
+  <button onclick="calcularFreteProduto('almofada', 30)">Calcular Frete</button>
+  <div class="resumo" id="resumoAlmofada"></div>
+  <button class="btnWhats" id="btnAlmofada" onclick="enviarWhatsApp('almofada')">Pedir pelo WhatsApp</button>
 </div>
 
-  </div><label style="margin-top: 20px; display:block;">CEP de destino:</label> <input type="text" id="cep"> <button onclick="calcularFrete()">Calcular Frete</button>
-
-  <div id="resumo"></div>
-  <button id="btnWhats" onclick="enviarWhatsApp()">Pedir pelo WhatsApp</button>  <script>
-    function calcularFrete() {
-      const cep = document.getElementById('cep').value.replace(/\D/g, '');
-      if (cep.length !== 8) {
-        alert('CEP inválido');
+  </div>  <script>
+    function calcularFreteProduto(produto, preco) {
+      const modelo = document.getElementById(`modelo${capitalize(produto)}`).value;
+      const qtd = parseInt(document.getElementById(`qtd${capitalize(produto)}`).value);
+      const cep = document.getElementById(`cep${capitalize(produto)}`).value.replace(/\D/g, '');
+      if (cep.length !== 8 || qtd === 0) {
+        alert('Preencha os campos corretamente.');
         return;
       }
-      const azulejo = parseInt(document.getElementById('qtdAzulejo').value) || 0;
-      const mdf = parseInt(document.getElementById('qtdMDF').value) || 0;
-      const puzzle = parseInt(document.getElementById('qtdPuzzle').value) || 0;
-      const almofada = parseInt(document.getElementById('qtdAlmofada').value) || 0;
-
       const frete = calcularValorFrete(cep);
-      const total = (azulejo * 35) + (mdf * 17) + (puzzle * 24) + (almofada * 30) + frete;
+      const total = qtd * preco + frete;
+      const resumo = `Resumo do Pedido:\nProduto: ${capitalize(produto)}\nEstilo: ${modelo}\nQuantidade: ${qtd}\nFrete estimado: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}`;
+      document.getElementById(`resumo${capitalize(produto)}`).innerText = resumo;
+      document.getElementById(`resumo${capitalize(produto)}`).style.display = 'block';
+      document.getElementById(`btn${capitalize(produto)}`).style.display = 'block';
+      window[`msg_${produto}`] = encodeURIComponent(resumo + `\nCEP: ${cep}`);
+    }
 
-      const resumo = `Resumo do Pedido:\nAzulejo (${document.getElementById('modeloAzulejo').value}): ${azulejo}\nPlaca MDF (${document.getElementById('modeloMDF').value}): ${mdf}\nQuebra-Cabeça (${document.getElementById('modeloPuzzle').value}): ${puzzle}\nAlmofada (${document.getElementById('modeloAlmofada').value}): ${almofada}\nFrete: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}`;
-
-      document.getElementById('resumo').innerText = resumo;
-      document.getElementById('btnWhats').style.display = 'block';
-      window.msgWhats = encodeURIComponent(resumo + `\nCEP: ${cep}`);
+    function enviarWhatsApp(produto) {
+      const url = `https://wa.me/5512992439101?text=${window[`msg_${produto}`]}`;
+      window.open(url, '_blank');
     }
 
     function calcularValorFrete(cep) {
@@ -164,9 +178,8 @@
       return 27;
     }
 
-    function enviarWhatsApp() {
-      const url = `https://wa.me/5512992439101?text=${window.msgWhats}`;
-      window.open(url, '_blank');
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     }
   </script></body>
 </html>
