@@ -365,13 +365,18 @@
       resumoEl.style.display = 'block';
       whatsappBtn.style.display = 'block';
 
-      // Envia para o WhatsApp o mesmo resumo
+      // Envia para o WhatsApp o mesmo conteúdo do resumo visível
       whatsappBtn.onclick = () => {
+        const resumoBruto = resumoEl.innerHTML
+          .replace(/<br\s*\/?>/gi, '\n')   // converte quebras de linha para \n
+          .replace(/<[^>]+>/g, '')         // remove qualquer tag HTML
+
         const mensagem = encodeURIComponent(
-          `Olá, gostaria de fazer um pedido na MugShopp:\n\n${resumoTexto}\n\nPor favor, envie mais detalhes sobre pagamento e prazo.`
+          `Olá, gostaria de fazer um pedido na MugShopp:\n\n${resumoBruto}\n\nPor favor, envie mais detalhes sobre pagamento e prazo.`
         );
         const url = `https://wa.me/message/XJOCYNPNDO4DD1?text=${mensagem}`;
         window.open(url, '_blank');
+
       };
     }
   </script>
