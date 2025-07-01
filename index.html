@@ -1,124 +1,145 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Calculadora de Frete e Total - Produtos Planos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja MugShopp - Azulejos 10x10</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 20px;
+      background: linear-gradient(to bottom, #ffffff, #e8f0f0);
       color: #333;
+      padding: 20px;
     }
-    h2 {
-      color: #004aad;
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+      color: #444;
     }
-    label, select, input {
-      display: block;
+    .produtos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .produto {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      padding: 15px;
+      text-align: center;
+    }
+    .produto img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .descricao {
+      margin-top: 10px;
+      font-size: 0.95em;
+    }
+    .preco {
+      font-weight: bold;
+      color: #008080;
       margin: 10px 0;
-      font-size: 16px;
     }
-    input[type="number"] {
-      width: 60px;
+    .frete-form {
+      margin-top: 10px;
+    }
+    input[type="number"], input[type="text"] {
+      padding: 5px;
+      margin-bottom: 5px;
+      width: 80%;
     }
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #004aad;
-      color: white;
+      background: #008080;
+      color: #fff;
       border: none;
-      border-radius: 6px;
+      padding: 8px 16px;
+      border-radius: 5px;
       cursor: pointer;
     }
     .resultado {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-      background: #e4f0ff;
-      padding: 15px;
-      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #444;
     }
-    .produto {
-      margin-bottom: 12px;
+    .pix {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #444;
     }
   </style>
 </head>
 <body>
-
-  <h2>🧾 Calculadora de Frete e Total</h2>
-
-  <form id="formulario">
+  <h1>Azulejos Decorativos 10x10</h1>
+  <div class="produtos">
+    <!-- Produto 1 -->
     <div class="produto">
-      <label>Azulejo 10x10 (R$15,00) - <input type="number" min="0" name="az10" value="0"> unidade(s)</label>
-    </div>
-    <div class="produto">
-      <label>Azulejo 15x15 (R$30,00) - <input type="number" min="0" name="az15" value="0"> unidade(s)</label>
-    </div>
-    <div class="produto">
-      <label>Azulejo 20x20 (R$35,00) - <input type="number" min="0" name="az20" value="0"> unidade(s)</label>
-    </div>
-    <div class="produto">
-      <label>Placa MDF A4 (R$17,00) - <input type="number" min="0" name="mdfA4" value="0"> unidade(s)</label>
-    </div>
-    <div class="produto">
-      <label>Quebra-Cabeça 12 peças (R$24,00) - <input type="number" min="0" name="qc12" value="0"> unidade(s)</label>
-    </div>
-    <div class="produto">
-      <label>Quebra-Cabeça 6 peças (R$12,00) - <input type="number" min="0" name="qc6" value="0"> unidade(s)</label>
-    </div>
+      <img src="avos.jpg" alt="Azulejo Vovó" />
+      <div class="descricao">Mensagem especial para vovós amorosas!</div>
+      <div class="preco">R$ 15,00</div>
+      <div class="frete-form">
+        <input type="number" min="1" placeholder="Quantidade" class="qtd" />
+        <input type="text" placeholder="Seu CEP" class="cep" />
+        <button onclick="calcularFrete(this, 'Avós')">Calcular Frete</button>
+        <div class="resultado"></div>
+      </div>
+    </div><!-- Produto 2 -->
+<div class="produto">
+  <img src="namo.png" alt="Azulejo Namorados" />
+  <div class="descricao">Design apaixonado com fotos de casais. Presenteie com amor!</div>
+  <div class="preco">R$ 15,00</div>
+  <div class="frete-form">
+    <input type="number" min="1" placeholder="Quantidade" class="qtd" />
+    <input type="text" placeholder="Seu CEP" class="cep" />
+    <button onclick="calcularFrete(this, 'Namorados')">Calcular Frete</button>
+    <div class="resultado"></div>
+  </div>
+</div>
 
-    <label>CEP de destino: <input type="text" id="cep" maxlength="9" placeholder="Ex: 12170-000" required></label>
+<!-- Produto 3 -->
+<div class="produto">
+  <img src="bodas.png" alt="Azulejo Bodas" />
+  <div class="descricao">Comemore o amor eterno com estilo: azulejo Bodas de Papel.</div>
+  <div class="preco">R$ 15,00</div>
+  <div class="frete-form">
+    <input type="number" min="1" placeholder="Quantidade" class="qtd" />
+    <input type="text" placeholder="Seu CEP" class="cep" />
+    <button onclick="calcularFrete(this, 'Bodas')">Calcular Frete</button>
+    <div class="resultado"></div>
+  </div>
+</div>
 
-    <button type="submit">Calcular Total</button>
-  </form>
+  </div>  <script>
+    function calcularFrete(btn, nomeProduto) {
+      const card = btn.closest('.produto');
+      const cep = card.querySelector('.cep').value;
+      const qtd = parseInt(card.querySelector('.qtd').value);
+      const res = card.querySelector('.resultado');
 
-  <div class="resultado" id="resultado"></div>
-
-  <script>
-    const produtos = {
-      az10:  { nome: 'Azulejo 10x10',    preco: 15.00, peso: 0.200 },
-      az15:  { nome: 'Azulejo 15x15',    preco: 30.00, peso: 0.400 },
-      az20:  { nome: 'Azulejo 20x20',    preco: 35.00, peso: 0.500 },
-      mdfA4: { nome: 'Placa MDF A4',     preco: 17.00, peso: 0.300 },
-      qc12:  { nome: 'Quebra-Cabeça 12p',preco: 24.00, peso: 0.200 },
-      qc6:   { nome: 'Quebra-Cabeça 6p', preco: 12.00, peso: 0.200 }
-    };
-
-    function calcularFrete(pesoTotal) {
-      if (pesoTotal <= 0.2) return 13.90;
-      if (pesoTotal <= 0.4) return 16.90;
-      if (pesoTotal <= 0.8) return 19.90;
-      if (pesoTotal <= 1.2) return 24.90;
-      if (pesoTotal <= 1.6) return 27.90;
-      if (pesoTotal <= 2.0) return 29.90;
-      if (pesoTotal <= 2.5) return 33.90;
-      return 39.90;
-    }
-
-    document.getElementById('formulario').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      let totalProdutos = 0;
-      let pesoTotal = 0;
-
-      for (const chave in produtos) {
-        const quantidade = parseInt(this[chave].value) || 0;
-        totalProdutos += quantidade * produtos[chave].preco;
-        pesoTotal += quantidade * produtos[chave].peso;
+      if (!cep || !qtd || qtd <= 0) {
+        res.textContent = 'Informe o CEP e uma quantidade válida';
+        return;
       }
 
-      const frete = calcularFrete(pesoTotal);
-      const total = totalProdutos + frete;
+      const peso = 0.400 * qtd;
+      const valor = 15 * qtd;
+      const prazo = 5;
+      const frete = 8 + peso * 5;
 
-      document.getElementById('resultado').innerHTML = `
-        🧱 Valor dos produtos: R$ ${totalProdutos.toFixed(2)}<br>
-        🚚 Frete estimado: R$ ${frete.toFixed(2)}<br>
-        💰 Total geral: <strong>R$ ${total.toFixed(2)}</strong><br>
-        <small>Simulação baseada em entrega via Jadlog.</small>
-      `;
-    });
-  </script>
-
-</body>
+      res.innerHTML = `Frete estimado: <strong>R$ ${frete.toFixed(2)}</strong><br>
+      Prazo médio: ${prazo} dias úteis<br>
+      Total: <strong>R$ ${(frete + valor).toFixed(2)}</strong><br>
+      <br>Chave PIX: <strong>(12) 99243-9101</strong><br>
+      <a href="https://wa.me/5512992439101?text=Olá! Quero ${qtd} unidade(s) do azulejo '${nomeProduto}'. Meu CEP é ${cep}." target="_blank">
+        <button>Finalizar via WhatsApp</button>
+      </a>`;
+    }
+  </script></body>
 </html>
