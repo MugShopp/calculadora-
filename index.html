@@ -66,6 +66,7 @@
 <body>
   <div class="container">
     <h1>Calcule seu Frete</h1>
+
     <label for="produto">Escolha um produto:</label>
     <select id="produto">
       <option value="azulejo">Azulejo 15x15 - R$30,00</option>
@@ -75,6 +76,9 @@
       <option value="toalhinha">Toalhinha Lavabinho - R$12,00</option>
       <option value="almofada">Mini Almofada 20x20 - R$25,00</option>
     </select>
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" min="1" value="1" />
 
     <label for="cep">Digite seu CEP:</label>
     <input type="text" id="cep" placeholder="Ex: 01001-000" maxlength="9"/>
@@ -97,6 +101,7 @@
     function calcularFrete() {
       const produtoSelecionado = document.getElementById("produto").value;
       const cep = document.getElementById("cep").value.trim();
+      const quantidade = parseInt(document.getElementById("quantidade").value);
       const resultado = document.getElementById("resultado");
 
       if (!cep.match(/^\d{5}-?\d{3}$/)) {
@@ -104,23 +109,33 @@
         return;
       }
 
+      if (quantidade <= 0) {
+        resultado.innerHTML = "<p style='color:red;'>Escolha uma quantidade válida.</p>";
+        return;
+      }
+
       const produto = produtos[produtoSelecionado];
+      const precoTotal = produto.preco * quantidade;
+      const pesoTotal = produto.peso * quantidade;
 
-      // Simulação de frete (valores fictícios com base no peso)
+      // Simulação de frete com base no peso total
       let frete = 15.90;
-      if (produto.peso <= 0.2) frete = 13.90;
-      if (produto.peso >= 0.3) frete = 17.90;
-      if (produto.peso >= 0.4) frete = 19.90;
+      if (pesoTotal <= 0.2) frete = 13.90;
+      if (pesoTotal > 0.2 && pesoTotal <= 0.4) frete = 16.90;
+      if (pesoTotal > 0.4 && pesoTotal <= 0.8) frete = 18.90;
+      if (pesoTotal > 0.8 && pesoTotal <= 1.2) frete = 21.90;
+      if (pesoTotal > 1.2) frete = 24.90;
 
-      // Simulando prazo
       const prazo = "2 a 5 dias úteis";
 
       resultado.innerHTML = `
         <p><strong>Produto:</strong> ${produto.nome}</p>
-        <p><strong>Valor do produto:</strong> R$ ${produto.preco.toFixed(2)}</p>
-        <p><strong>Frete (Jadlog):</strong> R$ ${frete.toFixed(2)}</p>
-        <p><strong>Prazo estimado:</strong> ${prazo}</p>
-        <p><strong>Total:</strong> R$ ${(produto.preco + frete).toFixed(2)}</p>
+        <p><strong>Quantidade:</strong> ${quantidade}</p>
+        <p><strong>Valor do produto:</strong> R$ ${precoTotal.toFixed(2)}</p>
+        <p><strong>Peso total:</strong> ${pesoTotal.toFixed(2)} kg</p>
+        <p><strong>Frete estimado (Jadlog):</strong> R$ ${frete.toFixed(2)}</p>
+        <p><strong>Prazo de entrega:</strong> ${prazo}</p>
+        <p><strong>Total com frete:</strong> R$ ${(precoTotal + frete).toFixed(2)}</p>
       `;
     }
   </script>
