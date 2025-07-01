@@ -1,145 +1,184 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loja MugShopp - Azulejos 10x10</title>
+  <title>MugShopp | Azulejos 20x20</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #ffffff, #e8f0f0);
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
       color: #333;
+    }
+    header {
+      background: #008CBA;
+      color: white;
+      text-align: center;
       padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 2em;
-      color: #444;
-    }
-    .produtos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-    }
-    .produto {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      width: 280px;
-      padding: 15px;
-      text-align: center;
-    }
-    .produto img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-    .descricao {
-      margin-top: 10px;
-      font-size: 0.95em;
-    }
-    .preco {
+      font-size: 24px;
       font-weight: bold;
-      color: #008080;
-      margin: 10px 0;
     }
-    .frete-form {
+    .galeria {
+      display: flex;
+      overflow-x: auto;
+      padding: 10px;
+      background: #fff;
+      scroll-snap-type: x mandatory;
+    }
+    .item {
+      flex: 0 0 auto;
+      width: 250px;
+      margin: 10px;
+      text-align: center;
+      scroll-snap-align: start;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .item img {
+      width: 100%;
+      border-bottom: 1px solid #ccc;
+      border-radius: 8px 8px 0 0;
+    }
+    .item p {
+      margin: 10px;
+      font-weight: bold;
+    }
+    .formulario {
+      padding: 20px;
+      background: #fff;
+    }
+    label {
+      display: block;
       margin-top: 10px;
+      font-weight: bold;
     }
-    input[type="number"], input[type="text"] {
-      padding: 5px;
-      margin-bottom: 5px;
-      width: 80%;
+    select, input[type=number], input[type=text], input[type=email] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
     button {
-      background: #008080;
-      color: #fff;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #008CBA;
+      color: white;
       border: none;
-      padding: 8px 16px;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-    .resultado {
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: #444;
+    #carrinho {
+      margin-top: 20px;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
     }
-    .pix {
+    #pix {
+      background: #eaf7ea;
+      padding: 20px;
+      margin-top: 20px;
+      border: 1px dashed #4CAF50;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+    }
+    .copiar {
+      background: #4CAF50;
+      color: white;
+      padding: 8px 16px;
       margin-top: 10px;
-      font-size: 0.9em;
-      color: #444;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>Azulejos Decorativos 10x10</h1>
-  <div class="produtos">
-    <!-- Produto 1 -->
-    <div class="produto">
-      <img src="avos.jpg" alt="Azulejo Vovó" />
-      <div class="descricao">Mensagem especial para vovós amorosas!</div>
-      <div class="preco">R$ 15,00</div>
-      <div class="frete-form">
-        <input type="number" min="1" placeholder="Quantidade" class="qtd" />
-        <input type="text" placeholder="Seu CEP" class="cep" />
-        <button onclick="calcularFrete(this, 'Avós')">Calcular Frete</button>
-        <div class="resultado"></div>
-      </div>
-    </div><!-- Produto 2 -->
-<div class="produto">
-  <img src="namo.png" alt="Azulejo Namorados" />
-  <div class="descricao">Design apaixonado com fotos de casais. Presenteie com amor!</div>
-  <div class="preco">R$ 15,00</div>
-  <div class="frete-form">
-    <input type="number" min="1" placeholder="Quantidade" class="qtd" />
-    <input type="text" placeholder="Seu CEP" class="cep" />
-    <button onclick="calcularFrete(this, 'Namorados')">Calcular Frete</button>
-    <div class="resultado"></div>
+  <header>Azulejos 20x20 - R$ 35,00</header>
+
+  <div class="galeria" id="galeria">
+    <!-- Os 9 modelos -->
+    <div class="item"><img src="https://i.postimg.cc/8PjjCyDs/mockup-01-1.png"><p>Modelo 1</p></div>
+    <div class="item"><img src="https://i.postimg.cc/tCw7nhCk/mockup-02-1.png"><p>Modelo 2</p></div>
+    <div class="item"><img src="https://i.postimg.cc/zB7Vy6VH/mockup-03-1.png"><p>Modelo 3</p></div>
+    <div class="item"><img src="https://i.postimg.cc/RF4WV4Vz/mockup-05-1.png"><p>Modelo 4</p></div>
+    <div class="item"><img src="https://i.postimg.cc/8C8F9L2c/mockup-08-1.png"><p>Modelo 5</p></div>
+    <div class="item"><img src="https://i.postimg.cc/PqmLjPH4/mockup-09-1.png"><p>Modelo 6</p></div>
+    <div class="item"><img src="https://i.postimg.cc/prdyzCFG/mockup-10-1.png"><p>Modelo 7</p></div>
+    <div class="item"><img src="https://i.postimg.cc/zvPvjhwJ/mockup-11-1.png"><p>Modelo 8</p></div>
+    <div class="item"><img src="https://i.postimg.cc/h4CXgkkH/mockup-12-1.png"><p>Modelo 9</p></div>
   </div>
-</div>
 
-<!-- Produto 3 -->
-<div class="produto">
-  <img src="bodas.png" alt="Azulejo Bodas" />
-  <div class="descricao">Comemore o amor eterno com estilo: azulejo Bodas de Papel.</div>
-  <div class="preco">R$ 15,00</div>
-  <div class="frete-form">
-    <input type="number" min="1" placeholder="Quantidade" class="qtd" />
-    <input type="text" placeholder="Seu CEP" class="cep" />
-    <button onclick="calcularFrete(this, 'Bodas')">Calcular Frete</button>
-    <div class="resultado"></div>
+  <div class="formulario">
+    <label for="modelo">Escolha o modelo:</label>
+    <select id="modelo">
+      <option value="Modelo 1">Modelo 1</option>
+      <option value="Modelo 2">Modelo 2</option>
+      <option value="Modelo 3">Modelo 3</option>
+      <option value="Modelo 4">Modelo 4</option>
+      <option value="Modelo 5">Modelo 5</option>
+      <option value="Modelo 6">Modelo 6</option>
+      <option value="Modelo 7">Modelo 7</option>
+      <option value="Modelo 8">Modelo 8</option>
+      <option value="Modelo 9">Modelo 9</option>
+    </select>
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" min="1" value="1">
+
+    <button onclick="adicionarCarrinho()">Adicionar ao carrinho</button>
+
+    <div id="carrinho"></div>
+
+    <div id="formularioFinal" style="display:none;">
+      <label>Nome completo:</label>
+      <input type="text" id="nome" required>
+      <label>Endereço completo:</label>
+      <input type="text" id="endereco" required>
+      <label>Telefone:</label>
+      <input type="text" id="telefone" required>
+      <label>E-mail:</label>
+      <input type="email" id="email" required>
+      <button onclick="finalizarPedido()">Finalizar Pedido</button>
+    </div>
+
+    <div id="pix">
+      <p><strong>Envie o comprovante de pagamento via WhatsApp com o número do pedido.</strong></p>
+      <p>Chave Pix: <strong>(12) 99243-9101</strong></p>
+      <button class="copiar" onclick="copiarPix()">Copiar chave Pix</button>
+    </div>
   </div>
-</div>
+<!-- Continuação e fechamento correto do código --><!-- ...parte anterior do código da loja aqui... --><!-- Campo para dados do cliente e botão de finalizar pedido --><div class="checkout-form">
+  <h3>Finalizar Pedido</h3>
+  <form id="checkoutForm" action="https://formsubmit.co/vendas@mugshopp.com.br" method="POST">
+    <input type="hidden" name="_subject" value="Novo pedido da loja MugShopp">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="box"><label for="nome">Nome completo:</label>
+<input type="text" name="nome" required>
 
-  </div>  <script>
-    function calcularFrete(btn, nomeProduto) {
-      const card = btn.closest('.produto');
-      const cep = card.querySelector('.cep').value;
-      const qtd = parseInt(card.querySelector('.qtd').value);
-      const res = card.querySelector('.resultado');
+<label for="email">E-mail:</label>
+<input type="email" name="email" required>
 
-      if (!cep || !qtd || qtd <= 0) {
-        res.textContent = 'Informe o CEP e uma quantidade válida';
-        return;
-      }
+<label for="telefone">Telefone:</label>
+<input type="tel" name="telefone" required>
 
-      const peso = 0.400 * qtd;
-      const valor = 15 * qtd;
-      const prazo = 5;
-      const frete = 8 + peso * 5;
+<label for="endereco">Endereço completo:</label>
+<textarea name="endereco" required></textarea>
 
-      res.innerHTML = `Frete estimado: <strong>R$ ${frete.toFixed(2)}</strong><br>
-      Prazo médio: ${prazo} dias úteis<br>
-      Total: <strong>R$ ${(frete + valor).toFixed(2)}</strong><br>
-      <br>Chave PIX: <strong>(12) 99243-9101</strong><br>
-      <a href="https://wa.me/5512992439101?text=Olá! Quero ${qtd} unidade(s) do azulejo '${nomeProduto}'. Meu CEP é ${cep}." target="_blank">
-        <button>Finalizar via WhatsApp</button>
-      </a>`;
-    }
-  </script></body>
+<label for="pedido">Detalhes do Pedido:</label>
+<textarea id="pedidoResumo" name="pedido" readonly></textarea>
+
+<button type="submit">Enviar Pedido</button>
+
+  </form>  <div class="pix-info">
+    <h4>Pagamento via Pix</h4>
+    <p>Copie a chave Pix abaixo e envie o comprovante com o número do pedido para nosso WhatsApp:</p>
+    <p><strong>Chave Pix:</strong> (12) 99243-9101</p>
+  </div>
+</div><!-- Final do corpo e fechamento da página --></body>
 </html>
