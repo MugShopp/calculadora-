@@ -26,11 +26,13 @@
     .galeria {
       display: flex;
       overflow-x: auto;
-      gap: 10px;
+      gap: 15px;
       margin-bottom: 10px;
+      justify-content: center;
     }
     .galeria img {
-      width: 120px;
+      width: 180px;
+      height: auto;
       border-radius: 5px;
       flex-shrink: 0;
     }
@@ -56,6 +58,7 @@
       padding: 15px;
       border-radius: 8px;
       font-weight: bold;
+      white-space: pre-line;
     }
     #btnWhats {
       display: none;
@@ -67,32 +70,32 @@
 <div class="coluna">
   <h2>Azulejos 20x20 - R$ 35,00</h2>
   <div class="galeria">
-    <img src="https://i.postimg.cc/kgz0yDXP/IMG-20250701-081641.png" title="Fotos">
-    <img src="https://i.postimg.cc/zB7Vy6VH/Modelo-03.png" title="Temas">
+    <img src="https://i.postimg.cc/kgz0yDXP/IMG-20250701-081641.png" title="Com Foto">
+    <img src="https://i.postimg.cc/zB7Vy6VH/Modelo-03.png" title="Com Tema">
   </div>
-  <label>Tipo:</label>
+  <label>Escolha o estilo:</label>
   <select id="modeloAzulejo">
-    <option value="Fotos">Fotos</option>
-    <option value="Temas">Temas</option>
+    <option value="Com Foto">Com Foto</option>
+    <option value="Com Tema">Com Tema</option>
   </select>
   <label>Quantidade:</label>
-  <input type="number" id="qtdAzulejo" value="1" min="1">
+  <input type="number" id="qtdAzulejo" value="1" min="0">
 </div>
 
 <!-- Placas MDF -->
 <div class="coluna">
   <h2>Placa MDF A4 - R$ 17,00</h2>
   <div class="galeria">
-    <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg" title="Fotos">
-    <img src="https://i.postimg.cc/5224rHVH/1-20250701-070735-0000.jpg" title="Temas">
+    <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg" title="Com Foto">
+    <img src="https://i.postimg.cc/5224rHVH/1-20250701-070735-0000.jpg" title="Com Tema">
   </div>
-  <label>Tipo:</label>
+  <label>Escolha o estilo:</label>
   <select id="modeloMDF">
-    <option value="Fotos">Fotos</option>
-    <option value="Temas">Temas</option>
+    <option value="Com Foto">Com Foto</option>
+    <option value="Com Tema">Com Tema</option>
   </select>
   <label>Quantidade:</label>
-  <input type="number" id="qtdMDF" value="1" min="1">
+  <input type="number" id="qtdMDF" value="1" min="0">
 </div>
 
 <!-- Quebra-Cabeça -->
@@ -100,32 +103,32 @@
   <h2>Quebra-Cabeça MDF 12 peças - R$ 24,00</h2>
   <p style="font-size: 14px; color: #555;">MDF 3mm. Pode ser personalizado com temas ou fotos.</p>
   <div class="galeria">
-    <img src="https://i.postimg.cc/rssMz3w8/IMG-20250701-080723.jpg" title="Fotos">
-    <img src="https://i.postimg.cc/RCWbg4yM/IMG-20250701-080712.png" title="Temas">
+    <img src="https://i.postimg.cc/rssMz3w8/IMG-20250701-080723.jpg" title="Com Foto">
+    <img src="https://i.postimg.cc/RCWbg4yM/IMG-20250701-080712.png" title="Com Tema">
   </div>
-  <label>Tipo:</label>
+  <label>Escolha o estilo:</label>
   <select id="modeloPuzzle">
-    <option value="Fotos">Fotos</option>
-    <option value="Temas">Temas</option>
+    <option value="Com Foto">Com Foto</option>
+    <option value="Com Tema">Com Tema</option>
   </select>
   <label>Quantidade:</label>
-  <input type="number" id="qtdPuzzle" value="1" min="1">
+  <input type="number" id="qtdPuzzle" value="1" min="0">
 </div>
 
 <!-- Almofadinha -->
 <div class="coluna">
   <h2>Almofadinha 20x20 - R$ 30,00</h2>
   <div class="galeria">
-    <img src="https://i.postimg.cc/8PPdZHjL/IMG-20250701-082456.jpg" title="Fotos">
-    <img src="https://i.postimg.cc/SKKGjGpy/IMG-20250701-082311.jpg" title="Temas">
+    <img src="https://i.postimg.cc/8PPdZHjL/IMG-20250701-082456.jpg" title="Com Foto">
+    <img src="https://i.postimg.cc/SKKGjGpy/IMG-20250701-082311.jpg" title="Com Tema">
   </div>
-  <label>Tipo:</label>
+  <label>Escolha o estilo:</label>
   <select id="modeloAlmofada">
-    <option value="Fotos">Fotos</option>
-    <option value="Temas">Temas</option>
+    <option value="Com Foto">Com Foto</option>
+    <option value="Com Tema">Com Tema</option>
   </select>
   <label>Quantidade:</label>
-  <input type="number" id="qtdAlmofada" value="1" min="1">
+  <input type="number" id="qtdAlmofada" value="1" min="0">
 </div>
 
   </div><label style="margin-top: 20px; display:block;">CEP de destino:</label> <input type="text" id="cep"> <button onclick="calcularFrete()">Calcular Frete</button>
@@ -146,9 +149,9 @@
       const frete = calcularValorFrete(cep);
       const total = (azulejo * 35) + (mdf * 17) + (puzzle * 24) + (almofada * 30) + frete;
 
-      const resumo = `Resumo do Pedido:\nAzulejos: ${azulejo}\nPlacas MDF: ${mdf}\nQuebra-Cabeça: ${puzzle}\nAlmofadinhas: ${almofada}\nFrete: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}`;
+      const resumo = `Resumo do Pedido:\nAzulejo (${document.getElementById('modeloAzulejo').value}): ${azulejo}\nPlaca MDF (${document.getElementById('modeloMDF').value}): ${mdf}\nQuebra-Cabeça (${document.getElementById('modeloPuzzle').value}): ${puzzle}\nAlmofada (${document.getElementById('modeloAlmofada').value}): ${almofada}\nFrete: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}`;
 
-      document.getElementById('resumo').innerText = resumo.replace(/\n/g, '\n');
+      document.getElementById('resumo').innerText = resumo;
       document.getElementById('btnWhats').style.display = 'block';
       window.msgWhats = encodeURIComponent(resumo + `\nCEP: ${cep}`);
     }
