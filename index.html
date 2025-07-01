@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora de Frete - MugShopp</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f1faff;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+      color: #222;
+    }
+
+    h1 {
+      color: #008cba;
+      margin-bottom: 10px;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      padding: 30px 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background: #008cba;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #0074a3;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .resultado p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calcule seu Frete</h1>
+    <label for="produto">Escolha um produto:</label>
+    <select id="produto">
+      <option value="azulejo">Azulejo 15x15 - R$30,00</option>
+      <option value="placa">Placa MDF A4 - R$17,00</option>
+      <option value="quebra12">Quebra-Cabeça 12 Peças - R$24,00</option>
+      <option value="quebra6">Quebra-Cabeça 6 Peças - R$12,00</option>
+      <option value="toalhinha">Toalhinha Lavabinho - R$12,00</option>
+      <option value="almofada">Mini Almofada 20x20 - R$25,00</option>
+    </select>
+
+    <label for="cep">Digite seu CEP:</label>
+    <input type="text" id="cep" placeholder="Ex: 01001-000" maxlength="9"/>
+
+    <button onclick="calcularFrete()">Calcular Frete</button>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    const produtos = {
+      azulejo: { nome: "Azulejo 15x15", preco: 30.00, peso: 0.4 },
+      placa: { nome: "Placa MDF A4", preco: 17.00, peso: 0.3 },
+      quebra12: { nome: "Quebra-Cabeça 12 Peças", preco: 24.00, peso: 0.2 },
+      quebra6: { nome: "Quebra-Cabeça 6 Peças", preco: 12.00, peso: 0.2 },
+      toalhinha: { nome: "Toalhinha Lavabinho", preco: 12.00, peso: 0.1 },
+      almofada: { nome: "Mini Almofada 20x20", preco: 25.00, peso: 0.2 }
+    };
+
+    function calcularFrete() {
+      const produtoSelecionado = document.getElementById("produto").value;
+      const cep = document.getElementById("cep").value.trim();
+      const resultado = document.getElementById("resultado");
+
+      if (!cep.match(/^\d{5}-?\d{3}$/)) {
+        resultado.innerHTML = "<p style='color:red;'>Digite um CEP válido.</p>";
+        return;
+      }
+
+      const produto = produtos[produtoSelecionado];
+
+      // Simulação de frete (valores fictícios com base no peso)
+      let frete = 15.90;
+      if (produto.peso <= 0.2) frete = 13.90;
+      if (produto.peso >= 0.3) frete = 17.90;
+      if (produto.peso >= 0.4) frete = 19.90;
+
+      // Simulando prazo
+      const prazo = "2 a 5 dias úteis";
+
+      resultado.innerHTML = `
+        <p><strong>Produto:</strong> ${produto.nome}</p>
+        <p><strong>Valor do produto:</strong> R$ ${produto.preco.toFixed(2)}</p>
+        <p><strong>Frete (Jadlog):</strong> R$ ${frete.toFixed(2)}</p>
+        <p><strong>Prazo estimado:</strong> ${prazo}</p>
+        <p><strong>Total:</strong> R$ ${(produto.preco + frete).toFixed(2)}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
