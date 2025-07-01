@@ -173,10 +173,7 @@
       const total = (qtd * valorProduto) + frete;
       const modelo = document.getElementById('modelo').value;
 
-      const resumo = `🧱 Produto: Azulejo 20x20 - ${modelo}
-🚞 Quantidade: ${qtd}
-🚚 Frete estimado (CEP ${cep}): R$ ${frete.toFixed(2)}
-💰 Total: R$ ${total.toFixed(2)}`;
+      const resumo = `🧱 Produto: Azulejo 20x20 - ${modelo}\n📦 Quantidade: ${qtd}\n🚚 Frete estimado (CEP ${cep}): R$ ${frete.toFixed(2)}\n💰 Total: R$ ${total.toFixed(2)}`;
 
       document.getElementById('pedidoResumo').value = resumo;
       document.getElementById('carrinho').innerHTML = `<strong>Total estimado com frete: R$ ${total.toFixed(2)}</strong>`;
@@ -190,35 +187,41 @@
       const pedido = document.getElementById('pedidoResumo').value;
       const numeroPedido = "00" + pedidoCount++;
 
-      const form = document.createElement('form');
-      form.action = 'https://formsubmit.co/vendas@mugshopp.com.br';
-      form.method = 'POST';
-      form.style.display = 'none';
+      const dados = {
+        _subject: `Novo pedido #${numeroPedido}`,
+        _captcha: "false",
+        _template: "box",
+        "Número do Pedido": numeroPedido,
+        Nome: nome,
+        Email: email,
+        Telefone: telefone,
+        Endereço: endereco,
+        "Resumo do Pedido": pedido
+      };
 
-      form.innerHTML = `
-        <input type="hidden" name="_subject" value="Novo pedido #${numeroPedido}">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="box">
-        <input type="hidden" name="Número do Pedido" value="${numeroPedido}">
-        <input type="hidden" name="Nome" value="${nome}">
-        <input type="hidden" name="Email" value="${email}">
-        <input type="hidden" name="Telefone" value="${telefone}">
-        <input type="hidden" name="Endereço" value="${endereco}">
-        <input type="hidden" name="Resumo do Pedido" value="${pedido}">
-      `;
-
-      document.body.appendChild(form);
-      form.submit();
-
-      document.getElementById('formulario').style.display = 'none';
-      document.getElementById('confirmacao').style.display = 'block';
-      document.getElementById('confirmacao').innerHTML = `
-        <h2>Pedido: ${numeroPedido}</h2>
-        <p>Obrigado pelo seu pedido, ${nome}!</p>
-        <p>Agora copie nossa chave Pix, faça o pagamento e envie o comprovante via WhatsApp.</p>
-        <p><strong>Obs:</strong> O pedido só será confirmado após o envio do comprovante.</p>
-      `;
-      document.getElementById('pixBox').style.display = 'block';
+      fetch("https://formsubmit.co/ajax/vendas@mugshopp.com.br", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+      })
+      .then(response => response.ok ? response.json() : Promise.reject(response))
+      .then(data => {
+        document.getElementById('formulario').style.display = 'none';
+        document.getElementById('confirmacao').style.display = 'block';
+        document.getElementById('confirmacao').innerHTML = `
+          <h2>Pedido: ${numeroPedido}</h2>
+          <p>Obrigado pelo seu pedido, ${nome}!</p>
+          <p>Agora copie nossa chave Pix, faça o pagamento e envie o comprovante via WhatsApp.</p>
+          <p><strong>Obs:</strong> O pedido só será confirmado após o envio do comprovante.</p>
+        `;
+        document.getElementById('pixBox').style.display = 'block';
+      })
+      .catch(error => {
+        alert("Ocorreu um erro ao enviar seu pedido. Tente novamente mais tarde.");
+        console.error(error);
+      });
     }
 
     function copiarPix() {
