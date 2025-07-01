@@ -42,7 +42,7 @@
       border-bottom: 1px solid #ccc;
       border-radius: 8px 8px 0 0;
     }
-    .formulario, .confirmacao, .pix-box {
+    .container {
       padding: 20px;
       background: #fff;
       max-width: 600px;
@@ -76,16 +76,16 @@
       cursor: pointer;
       font-size: 16px;
     }
-    #carrinho {
-      margin-top: 20px;
-      border-top: 1px solid #ccc;
-      padding-top: 20px;
+    #resumo, .formulario, .confirmacao, .pix-box {
+      display: none;
     }
     .pix-box {
-      display: none;
       background: #eaf7ea;
       border: 1px dashed #4CAF50;
       text-align: center;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 8px;
     }
     .pix-box p {
       font-weight: bold;
@@ -100,9 +100,11 @@
       cursor: pointer;
     }
     .confirmacao {
-      display: none;
       text-align: center;
       border: 2px solid #4CAF50;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -117,7 +119,7 @@
     <div class="item"><img src="https://i.postimg.cc/prdyzCFG/mockup-10-1.png"><p>Modelo 7</p></div>
     <div class="item"><img src="https://i.postimg.cc/zvPvjhwJ/mockup-11-1.png"><p>Modelo 8</p></div>
     <div class="item"><img src="https://i.postimg.cc/h4CXgkkH/mockup-12-1.png"><p>Modelo 9</p></div>
-  </div>  <div class="formulario" id="formulario">
+  </div>  <div class="container">
     <label for="modelo">Escolha o modelo:</label>
     <select id="modelo">
       <option>Modelo 1</option><option>Modelo 2</option><option>Modelo 3</option>
@@ -130,16 +132,16 @@
 <input type="text" id="cep" placeholder="Ex: 12170-000" />
 
 <button onclick="calcularFrete()">Calcular Frete</button>
-<div id="carrinho"></div>
 
-<label>Nome completo:</label><input type="text" id="nome" required />
-<label>Email:</label><input type="email" id="email" required />
-<label>Telefone:</label><input type="tel" id="telefone" required />
-<label>Endereço completo:</label><textarea id="endereco" required></textarea>
-<label>Resumo do pedido:</label><textarea id="pedidoResumo" readonly></textarea>
+<div id="resumo"></div>
 
-<button onclick="finalizarPedido()">Enviar Pedido</button>
-
+  </div>  <div class="formulario container" id="formulario">
+    <label>Nome completo:</label><input type="text" id="nome" required />
+    <label>Email:</label><input type="email" id="email" required />
+    <label>Telefone:</label><input type="tel" id="telefone" required />
+    <label>Endereço completo:</label><textarea id="endereco" required></textarea>
+    <label>Resumo do pedido:</label><textarea id="pedidoResumo" readonly></textarea>
+    <button onclick="finalizarPedido()">Enviar Pedido</button>
   </div>  <div class="confirmacao" id="confirmacao"></div>
   <div class="pix-box" id="pixBox">
     <p>Pagamento via Pix</p>
@@ -152,11 +154,6 @@
 
     function calcularFrete() {
       const cep = document.getElementById('cep').value.trim();
-      if (!cep) {
-        alert("Por favor, preencha o CEP para calcular o frete.");
-        return;
-      }
-
       const qtd = parseInt(document.getElementById('quantidade').value) || 1;
       const valorProduto = 35;
       const pesoTotal = qtd * 0.5;
@@ -176,7 +173,11 @@
       const resumo = `🧱 Produto: Azulejo 20x20 - ${modelo}\n📦 Quantidade: ${qtd}\n🚚 Frete estimado (CEP ${cep}): R$ ${frete.toFixed(2)}\n💰 Total: R$ ${total.toFixed(2)}`;
 
       document.getElementById('pedidoResumo').value = resumo;
-      document.getElementById('carrinho').innerHTML = `<strong>Total estimado com frete: R$ ${total.toFixed(2)}</strong>`;
+      document.getElementById('resumo').style.display = 'block';
+      document.getElementById('resumo').innerHTML = `
+        <p><strong>Resumo:</strong><br>${resumo.replace(/\n/g, '<br>')}</p>
+        <button onclick=\"document.getElementById('formulario').style.display='block'; window.scrollTo(0, document.body.scrollHeight);\">Comprar</button>
+      `;
     }
 
     function finalizarPedido() {
