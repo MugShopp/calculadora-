@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,6 +62,10 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+    textarea#pedidoResumo {
+      height: 180px;
+      resize: vertical;
+    }
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -85,6 +88,7 @@
       margin: 20px auto;
       max-width: 400px;
       text-align: center;
+      display: none;
     }
     .pix-box p {
       margin: 10px 0;
@@ -101,13 +105,17 @@
     .confirmacao {
       text-align: center;
       padding: 30px;
+      background: #fff;
+      margin: 30px auto;
+      max-width: 600px;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <header>Azulejos 20x20 - R$ 35,00</header>
-
-  <div class="galeria">
+  <header>Azulejos 20x20 - R$ 35,00</header>  <div class="galeria">
     <div class="item"><img src="https://i.postimg.cc/8PjjCyDs/mockup-01-1.png"><p>Modelo 1</p></div>
     <div class="item"><img src="https://i.postimg.cc/tCw7nhCk/mockup-02-1.png"><p>Modelo 2</p></div>
     <div class="item"><img src="https://i.postimg.cc/zB7Vy6VH/mockup-03-1.png"><p>Modelo 3</p></div>
@@ -117,9 +125,7 @@
     <div class="item"><img src="https://i.postimg.cc/prdyzCFG/mockup-10-1.png"><p>Modelo 7</p></div>
     <div class="item"><img src="https://i.postimg.cc/zvPvjhwJ/mockup-11-1.png"><p>Modelo 8</p></div>
     <div class="item"><img src="https://i.postimg.cc/h4CXgkkH/mockup-12-1.png"><p>Modelo 9</p></div>
-  </div>
-
-  <div class="formulario">
+  </div>  <div class="formulario">
     <label for="modelo">Escolha o modelo:</label>
     <select id="modelo">
       <option value="Modelo 1">Modelo 1</option>
@@ -131,163 +137,91 @@
       <option value="Modelo 7">Modelo 7</option>
       <option value="Modelo 8">Modelo 8</option>
       <option value="Modelo 9">Modelo 9</option>
-    </select>
+    </select><label for="quantidade">Quantidade:</label>
+<input type="number" id="quantidade" min="1" value="1">
 
-    <label for="quantidade">Quantidade:</label>
-    <input type="number" id="quantidade" min="1" value="1">
+<label for="cep">CEP para simular frete:</label>
+<input type="text" id="cep" placeholder="Ex: 12170-000">
 
-    <label for="cep">CEP para simular frete:</label>
-    <input type="text" id="cep" placeholder="Ex: 12170-000">
+<button onclick="calcularFrete()">Calcular Frete</button>
 
-    <button onclick="calcularFrete()">Calcular Frete</button>
+<div id="carrinho"></div>
 
-    <div id="carrinho"></div>
+<form id="checkoutForm">
+  <label for="nome">Nome completo:</label>
+  <input type="text" name="nome" id="nome" required>
 
-    <form id="checkoutForm" action="https://formsubmit.co/vendas@mugshopp.com.br" method="POST">
-      <input type="hidden" name="_subject" value="Novo pedido da loja MugShopp">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="box">
+  <label for="email">E-mail:</label>
+  <input type="email" name="email" id="email" required>
 
-      <label for="nome">Nome completo:</label>
-      <input type="text" name="nome" required>
+  <label for="telefone">Telefone:</label>
+  <input type="tel" name="telefone" id="telefone" required>
 
-      <label for="email">E-mail:</label>
-      <input type="email" name="email" required>
+  <label for="endereco">Endereço completo:</label>
+  <textarea name="endereco" id="endereco" required></textarea>
 
-      <label for="telefone">Telefone:</label>
-      <input type="tel" name="telefone" required>
+  <label for="pedido">Resumo do Pedido:</label>
+  <textarea id="pedidoResumo" name="pedido" readonly required></textarea>
 
-      <label for="endereco">Endereço completo:</label>
-      <textarea name="endereco" required></textarea>
+  <button type="button" onclick="finalizarPedido()">Enviar Pedido</button>
+</form>
 
-      <label for="pedido">Resumo do Pedido:</label>
-      <textarea id="pedidoResumo" name="pedido" readonly required></textarea>
+  </div>  <div class="confirmacao" id="confirmacao"></div>  <div class="pix-box" id="pixBox">
+    <p>Pagamento via Pix</p>
+    <p><strong>Chave Pix:</strong> (12) 99243-9101</p>
+    <p><strong>Nome:</strong> Luciana A Pereira</p>
+    <p><strong>Banco:</strong> SumUp</p>
+    <button class="copiar" onclick="copiarPix()">Copiar chave Pix</button>
+  </div><script>
+let pedidoCount = Math.floor(Math.random() * 90000) + 10000;
 
-      <button type="submit">Enviar Pedido</button>
-    </form>
-<script>
-  const carrinho = [];
-  const precoUnitario = 35.00;
-  const pesoPorUnidade = 0.5;
+function calcularFrete() {
+  const cep = document.getElementById('cep').value;
+  const qtd = parseInt(document.getElementById('quantidade').value) || 1;
+  const valorProduto = 35;
+  const pesoTotal = qtd * 0.5; // Azulejo 20x20 = 500g
   let frete = 0;
-  let numeroPedido = "";
+  if (pesoTotal <= 0.2) frete = 13.90;
+  else if (pesoTotal <= 0.4) frete = 16.90;
+  else if (pesoTotal <= 0.8) frete = 19.90;
+  else if (pesoTotal <= 1.2) frete = 24.90;
+  else if (pesoTotal <= 1.6) frete = 27.90;
+  else if (pesoTotal <= 2.0) frete = 29.90;
+  else frete = 33.90;
 
-  function gerarNumeroPedido() {
-    const agora = new Date();
-    const dia = String(agora.getDate()).padStart(2, '0');
-    const mes = String(agora.getMonth() + 1).padStart(2, '0');
-    const hora = String(agora.getHours()).padStart(2, '0');
-    const minuto = String(agora.getMinutes()).padStart(2, '0');
-    return `PED-${dia}${mes}-${hora}${minuto}`;
-  }
+  const total = (qtd * valorProduto) + frete;
+  document.getElementById('pedidoResumo').value =
+    `Produto: Azulejo 20x20 - ${document.getElementById('modelo').value}\n` +
+    `Quantidade: ${qtd}\n` +
+    `Frete estimado (para ${cep}): R$ ${frete.toFixed(2)}\n` +
+    `Total: R$ ${total.toFixed(2)}`;
 
-  function calcularFrete() {
-    const modelo = document.getElementById("modelo").value;
-    const quantidade = parseInt(document.getElementById("quantidade").value);
-    const cep = document.getElementById("cep").value.trim();
+  document.getElementById('carrinho').innerHTML =
+    `<strong>Total estimado com frete: R$ ${total.toFixed(2)}</strong>`;
+}
 
-    if (!cep || !quantidade || quantidade < 1) {
-      alert("Preencha corretamente o modelo, a quantidade e o CEP.");
-      return;
-    }
+function finalizarPedido() {
+  const nome = document.getElementById('nome').value;
+  const email = document.getElementById('email').value;
+  const tel = document.getElementById('telefone').value;
+  const endereco = document.getElementById('endereco').value;
+  const pedido = document.getElementById('pedidoResumo').value;
+  const numeroPedido = "00" + pedidoCount++;
 
-    const pesoTotal = quantidade * pesoPorUnidade;
+  document.getElementById('confirmacao').style.display = 'block';
+  document.getElementById('confirmacao').innerHTML = `
+    <h2>Pedido: ${numeroPedido}</h2>
+    <p>Obrigado pelo seu pedido, ${nome}!</p>
+    <p>Agora copie nossa chave Pix, faça o pagamento e envie o comprovante via WhatsApp.</p>
+    <p><strong>Obs:</strong> O pedido só será confirmado após o envio do comprovante.</p>
+  `;
 
-    if (pesoTotal <= 0.2) frete = 13.90;
-    else if (pesoTotal <= 0.4) frete = 16.90;
-    else if (pesoTotal <= 0.8) frete = 19.90;
-    else if (pesoTotal <= 1.2) frete = 24.90;
-    else if (pesoTotal <= 1.6) frete = 27.90;
-    else if (pesoTotal <= 2.0) frete = 29.90;
-    else if (pesoTotal <= 2.5) frete = 33.90;
-    else frete = 39.90;
+  document.getElementById('pixBox').style.display = 'block';
+}
 
-    const itemExistente = carrinho.find(item => item.modelo === modelo);
-    if (itemExistente) {
-      itemExistente.quantidade += quantidade;
-    } else {
-      carrinho.length = 0; // limpa carrinho para um produto por vez
-      carrinho.push({ modelo, quantidade });
-    }
-
-    atualizarCarrinho();
-    preencherResumo();
-  }
-
-  function atualizarCarrinho() {
-    const div = document.getElementById("carrinho");
-    div.innerHTML = "<h3>Resumo da Compra:</h3>";
-    let subtotal = 0;
-
-    carrinho.forEach(item => {
-      const sub = item.quantidade * precoUnitario;
-      subtotal += sub;
-      div.innerHTML += `<p>🧱 ${item.modelo} - Quantidade: ${item.quantidade} - R$ ${sub.toFixed(2)}</p>`;
-    });
-
-    const total = subtotal + frete;
-    div.innerHTML += `<p>🚚 Frete estimado: R$ ${frete.toFixed(2)}</p>`;
-    div.innerHTML += `<p><strong>💰 Total: R$ ${total.toFixed(2)}</strong></p>`;
-  }
-
-  function preencherResumo() {
-    const textarea = document.getElementById("pedidoResumo");
-    let texto = `Número do Pedido: ${numeroPedido}\n\n`;
-
-    let subtotal = 0;
-    carrinho.forEach(item => {
-      const sub = item.quantidade * precoUnitario;
-      subtotal += sub;
-      texto += `${item.modelo} - Quantidade: ${item.quantidade} - R$ ${sub.toFixed(2)}\n`;
-    });
-
-    const total = subtotal + frete;
-
-    texto += `\nFrete estimado: R$ ${frete.toFixed(2)}\n`;
-    texto += `Total geral: R$ ${total.toFixed(2)}\n`;
-    texto += `\nPagamento via Pix: Enviar comprovante para (12) 99243-9101 (Luciana A Pereira - Banco SumUp).`;
-
-    textarea.value = texto;
-  }
-
-  document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    numeroPedido = gerarNumeroPedido();
-    preencherResumo();
-
-    // envia formulário
-    setTimeout(() => {
-      this.submit(); // envia o formsubmit
-      setTimeout(() => mostrarConfirmacao(), 1000); // exibe a tela Pix
-    }, 300);
-  });
-
-  function mostrarConfirmacao() {
-    document.body.innerHTML = `
-      <div class="confirmacao">
-        <h2>🎉 Pedido enviado com sucesso!</h2>
-        <p>Seu número de pedido é:</p>
-        <p><strong>${numeroPedido}</strong></p>
-
-        <div class="pix-box">
-          <p>Chave Pix: <strong>(12) 99243-9101</strong></p>
-          <p>Nome: <strong>Luciana A Pereira</strong></p>
-          <p>Banco: <strong>SumUp</strong></p>
-          <button class="copiar" onclick="copiarPix()">📋 Copiar chave Pix</button>
-        </div>
-
-        <p style="margin-top: 20px; color: #d9534f;"><strong>Atenção:</strong> Seu pedido só será confirmado após o envio do comprovante via WhatsApp.</p>
-        <a href="" style="display:block; margin-top: 30px;">⬅️ Voltar à loja</a>
-      </div>
-    `;
-  }
-
-  function copiarPix() {
-    navigator.clipboard.writeText("(12) 99243-9101").then(() => {
-      alert("Chave Pix copiada com sucesso!");
-    });
-  }
-</script>
-</body>
+function copiarPix() {
+  navigator.clipboard.writeText("12 99243-9101");
+  alert("Chave Pix copiada!");
+}
+</script></body>
 </html>
