@@ -30,7 +30,7 @@
       margin-bottom: 10px;
     }
     .galeria img {
-      width: 100px;
+      width: 120px;
       border-radius: 5px;
       flex-shrink: 0;
     }
@@ -61,89 +61,74 @@
       display: none;
       margin-top: 15px;
     }
-    .descricao {
-      font-size: 14px;
-      color: #555;
-      margin-top: -5px;
-    }
   </style>
 </head>
-<body>  <div class="container"><!-- Coluna 1: Azulejos -->
+<body>  <div class="container"><!-- Azulejos -->
 <div class="coluna">
-  <h2>Azulejo 20x20 - R$ 35,00</h2>
+  <h2>Azulejos 20x20 - R$ 35,00</h2>
   <div class="galeria">
-    <img src="https://i.postimg.cc/y6yVjhZh/10-20250701-070735-0009.jpg">
-    <img src="https://i.postimg.cc/dtQJx72b/11-20250701-070735-0010.jpg">
-    <img src="https://i.postimg.cc/gkMGFY4n/12-20250701-070735-0011.jpg">
-    <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg">
-    <img src="https://i.postimg.cc/ncThFKVV/2-20250701-070735-0001.jpg">
-    <img src="https://i.postimg.cc/6p35y7Tr/3-20250701-070735-0002.jpg">
-    <img src="https://i.postimg.cc/t4MRPXVL/4-20250701-070735-0003.jpg">
-    <img src="https://i.postimg.cc/5tQ4SZBj/5-20250701-070735-0004.jpg">
+    <img src="https://i.postimg.cc/kgz0yDXP/IMG-20250701-081641.png" title="Fotos">
+    <img src="https://i.postimg.cc/zB7Vy6VH/Modelo-03.png" title="Temas">
   </div>
-  <label>Escolha o modelo:</label>
+  <label>Tipo:</label>
   <select id="modeloAzulejo">
-    <option>Modelo 1</option>
-    <option>Modelo 2</option>
-    <option>Modelo 3</option>
-    <option>Modelo 4</option>
-    <option>Modelo 5</option>
-    <option>Modelo 6</option>
-    <option>Modelo 7</option>
-    <option>Modelo 8</option>
+    <option value="Fotos">Fotos</option>
+    <option value="Temas">Temas</option>
   </select>
   <label>Quantidade:</label>
   <input type="number" id="qtdAzulejo" value="1" min="1">
-  <label>CEP:</label>
-  <input type="text" id="cep">
 </div>
 
-<!-- Coluna 2: Placas MDF -->
+<!-- Placas MDF -->
 <div class="coluna">
   <h2>Placa MDF A4 - R$ 17,00</h2>
   <div class="galeria">
-    <img src="https://i.postimg.cc/y6yVjhZh/10-20250701-070735-0009.jpg">
-    <img src="https://i.postimg.cc/dtQJx72b/11-20250701-070735-0010.jpg">
-    <img src="https://i.postimg.cc/gkMGFY4n/12-20250701-070735-0011.jpg">
-    <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg">
-    <img src="https://i.postimg.cc/ncThFKVV/2-20250701-070735-0001.jpg">
-    <img src="https://i.postimg.cc/6p35y7Tr/3-20250701-070735-0002.jpg">
-    <img src="https://i.postimg.cc/t4MRPXVL/4-20250701-070735-0003.jpg">
-    <img src="https://i.postimg.cc/5tQ4SZBj/5-20250701-070735-0004.jpg">
+    <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg" title="Fotos">
+    <img src="https://i.postimg.cc/5224rHVH/1-20250701-070735-0000.jpg" title="Temas">
   </div>
-  <label>Escolha o modelo:</label>
+  <label>Tipo:</label>
   <select id="modeloMDF">
-    <option>Modelo 1</option>
-    <option>Modelo 2</option>
-    <option>Modelo 3</option>
-    <option>Modelo 4</option>
-    <option>Modelo 5</option>
-    <option>Modelo 6</option>
-    <option>Modelo 7</option>
-    <option>Modelo 8</option>
+    <option value="Fotos">Fotos</option>
+    <option value="Temas">Temas</option>
   </select>
   <label>Quantidade:</label>
   <input type="number" id="qtdMDF" value="1" min="1">
 </div>
 
-<!-- Coluna 3: Quebra-Cabeças -->
+<!-- Quebra-Cabeça -->
 <div class="coluna">
-  <h2>Quebra-Cabeça MDF</h2>
-  <p class="descricao">Material MDF 3mm. Pode ser personalizado com temas ou fotos.</p>
+  <h2>Quebra-Cabeça MDF 12 peças - R$ 24,00</h2>
+  <p style="font-size: 14px; color: #555;">MDF 3mm. Pode ser personalizado com temas ou fotos.</p>
   <div class="galeria">
-    <img src="https://i.postimg.cc/rssMz3w8/IMG-20250701-080723.jpg" title="12 Peças">
-    <img src="https://i.postimg.cc/Wp54j61N/file-00000000861861f789dc2154b724503d-1.png" title="6 Peças">
+    <img src="https://i.postimg.cc/rssMz3w8/IMG-20250701-080723.jpg" title="Fotos">
+    <img src="https://i.postimg.cc/RCWbg4yM/IMG-20250701-080712.png" title="Temas">
   </div>
   <label>Tipo:</label>
   <select id="modeloPuzzle">
-    <option value="12">12 peças - R$ 24,00</option>
-    <option value="6">6 peças - R$ 12,00</option>
+    <option value="Fotos">Fotos</option>
+    <option value="Temas">Temas</option>
   </select>
   <label>Quantidade:</label>
   <input type="number" id="qtdPuzzle" value="1" min="1">
 </div>
 
-  </div><button onclick="calcularFrete()">Calcular Frete</button>
+<!-- Almofadinha -->
+<div class="coluna">
+  <h2>Almofadinha 20x20 - R$ 30,00</h2>
+  <div class="galeria">
+    <img src="https://i.postimg.cc/8PPdZHjL/IMG-20250701-082456.jpg" title="Fotos">
+    <img src="https://i.postimg.cc/SKKGjGpy/IMG-20250701-082311.jpg" title="Temas">
+  </div>
+  <label>Tipo:</label>
+  <select id="modeloAlmofada">
+    <option value="Fotos">Fotos</option>
+    <option value="Temas">Temas</option>
+  </select>
+  <label>Quantidade:</label>
+  <input type="number" id="qtdAlmofada" value="1" min="1">
+</div>
+
+  </div><label style="margin-top: 20px; display:block;">CEP de destino:</label> <input type="text" id="cep"> <button onclick="calcularFrete()">Calcular Frete</button>
 
   <div id="resumo"></div>
   <button id="btnWhats" onclick="enviarWhatsApp()">Pedir pelo WhatsApp</button>  <script>
@@ -153,17 +138,15 @@
         alert('CEP inválido');
         return;
       }
-      const qtdAzulejo = parseInt(document.getElementById('qtdAzulejo').value) || 0;
-      const qtdMDF = parseInt(document.getElementById('qtdMDF').value) || 0;
-      const qtdPuzzle = parseInt(document.getElementById('qtdPuzzle').value) || 0;
-      const tipoPuzzle = document.getElementById('modeloPuzzle').value;
-
-      let precoPuzzle = tipoPuzzle === '12' ? 24 : 12;
+      const azulejo = parseInt(document.getElementById('qtdAzulejo').value) || 0;
+      const mdf = parseInt(document.getElementById('qtdMDF').value) || 0;
+      const puzzle = parseInt(document.getElementById('qtdPuzzle').value) || 0;
+      const almofada = parseInt(document.getElementById('qtdAlmofada').value) || 0;
 
       const frete = calcularValorFrete(cep);
-      const total = (qtdAzulejo * 35) + (qtdMDF * 17) + (qtdPuzzle * precoPuzzle) + frete;
+      const total = (azulejo * 35) + (mdf * 17) + (puzzle * 24) + (almofada * 30) + frete;
 
-      const resumo = `Resumo do Pedido:\nAzulejos: ${qtdAzulejo} unidade(s)\nPlacas MDF: ${qtdMDF} unidade(s)\nQuebra-Cabeça (${tipoPuzzle} peças): ${qtdPuzzle} unidade(s)\nFrete: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}`;
+      const resumo = `Resumo do Pedido:\nAzulejos: ${azulejo}\nPlacas MDF: ${mdf}\nQuebra-Cabeça: ${puzzle}\nAlmofadinhas: ${almofada}\nFrete: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}`;
 
       document.getElementById('resumo').innerText = resumo.replace(/\n/g, '\n');
       document.getElementById('btnWhats').style.display = 'block';
