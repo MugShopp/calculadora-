@@ -204,14 +204,14 @@
         <button class="whatsapp-btn" id="whatsapp-almofada">Pedir no WhatsApp</button>
       </div>
 
-      <!-- Produto 3: Canecas de Cerâmica -->
+      <!-- Produto 3: Caneca de Cerâmica -->
       <div class="product" id="produto-caneca-ceramica">
-        <h3>Canecas de Cerâmica</h3>
+        <h3>Caneca de Cerâmica</h3>
         <div class="carousel">
           <img src="https://i.postimg.cc/X7vvQKxw/FB-IMG-1724412964468.jpg" alt="Caneca com foto" />
           <img src="https://i.postimg.cc/zB7Vy6VH/Modelo-03.png" alt="Caneca com tema" />
         </div>
-        <p class="desc">Caneca de cerâmica 325ml personalizada com foto ou tema. Preço: R$ 40,00</p>
+        <p class="desc">Caneca cerâmica 325ml personalizada com foto ou tema. Preço: R$ 40,00</p>
         <label for="modelo-caneca-ceramica">Modelo:</label>
         <select id="modelo-caneca-ceramica">
           <option value="foto">Foto</option>
@@ -225,114 +225,166 @@
         <div class="resumo" id="resumo-caneca-ceramica"></div>
         <button class="whatsapp-btn" id="whatsapp-caneca-ceramica">Pedir no WhatsApp</button>
       </div>
-    </div>
-  </div>
+
+      <!-- Produto 4: Caneca Glitter -->
+      <div class="product" id="produto-caneca-glitter">
+        <h3>Caneca com Glitter</h3>
+        <div class="carousel">
+          <img src="https://i.postimg.cc/j5W4LjxJ/FB-IMG-1724412729186.jpg" alt="Caneca glitter rosa" />
+          <img src="https://i.postimg.cc/vZPNjj5M/FB-IMG-1724412712510.jpg" alt="Caneca glitter dourada" />
+        </div>
+        <p class="desc">Caneca de cerâmica com glitter (rosa ou dourado). Preço: R$ 60,00</p>
+        <label for="modelo-caneca-glitter">Modelo:</label>
+        <select id="modelo-caneca-glitter">
+          <option value="rosa">Rosa</option>
+          <option value="dourado">Dourado</option>
+        </select>
+        <label for="quantidade-caneca-glitter">Quantidade:</label>
+        <input type="number" id="quantidade-caneca-glitter" min="1" value="1" />
+        <label for="cep-caneca-glitter">CEP:</label>
+        <input type="text" id="cep-caneca-glitter" placeholder="Ex: 12071600" maxlength="8" />
+        <button class="calc-frete" onclick="calcularFrete('caneca-glitter')">Calcular Frete</button>
+        <div class="resumo" id="resumo-caneca-glitter"></div>
+        <button class="whatsapp-btn" id="whatsapp-caneca-glitter">Pedir no WhatsApp</button>
+      </div>
+
+      <!-- Produto 5: Caneca Glitter Base -->
+      <div class="product" id="produto-caneca-base-glitter">
+        <h3>Caneca Base de Glitter</h3>
+        <div class="carousel">
+          <img src="https://i.postimg.cc/kXd4PGZy/FB-IMG-1724412705513.jpg" alt="Caneca base glitter rosa" />
+          <img src="https://i.postimg.cc/Pr1yFVdW/FB-IMG-1724412702130.jpg" alt="Caneca base glitter dourada" />
+        </div>
+        <p class="desc">Caneca com glitter somente na base. Rosa ou dourado. Preço: R$ 60,00</p>
+        <label for="modelo-caneca-base-glitter">Modelo:</label>
+        <select id="modelo-caneca-base-glitter">
+          <option value="rosa">Rosa</option>
+          <option value="dourado">Dourado</option>
+        </select>
+        <label for="quantidade-caneca-base-glitter">Quantidade:</label>
+        <input type="number" id="quantidade-caneca-base-glitter" min="1" value="1" />
+        <label for="cep-caneca-base-glitter">CEP:</label>
+        <input type="text" id="cep-caneca-base-glitter" placeholder="Ex: 12071600" maxlength="8" />
+        <button class="calc-frete" onclick="calcularFrete('caneca-base-glitter')">Calcular Frete</button>
+        <div class="resumo" id="resumo-caneca-base-glitter"></div>
+        <button class="whatsapp-btn" id="whatsapp-caneca-base-glitter">Pedir no WhatsApp</button>
+      </div>
+
+    </div> <!-- fecha product-grid -->
+  </div> <!-- fecha container -->
+
   <script>
-  const precos = {
-    'quebra-cabeca': 50,
-    'almofada': 45,
-    'caneca-ceramica': 40
-  };
-
-  const pesos = {
-    'quebra-cabeca': 300,
-    'almofada': 200,
-    'caneca-ceramica': 600
-  };
-
-  function validarCEP(cep) {
-    return /^\d{8}$/.test(cep);
-  }
-
-  function calcularFrete(produtoId) {
-    const quantidade = Number(document.getElementById(`quantidade-${produtoId}`).value);
-    const cep = document.getElementById(`cep-${produtoId}`).value.trim();
-    const modelo = document.getElementById(`modelo-${produtoId}`).value;
-    const precoUnit = precos[produtoId];
-    const pesoUnit = pesos[produtoId];
-    const resumoEl = document.getElementById(`resumo-${produtoId}`);
-    const whatsappBtn = document.getElementById(`whatsapp-${produtoId}`);
-
-    resumoEl.style.display = 'none';
-    whatsappBtn.style.display = 'none';
-
-    if (!validarCEP(cep)) {
-      alert('Por favor, insira um CEP válido com 8 dígitos numéricos.');
-      return;
-    }
-
-    if (quantidade < 1) {
-      alert('A quantidade deve ser pelo menos 1.');
-      return;
-    }
-
-    const regiaoDigit = cep[0];
-    let regiaoNome = '';
-    let frete = 0;
-
-    switch (regiaoDigit) {
-      case '0': case '1': case '2':
-        regiaoNome = 'Sudeste';
-        frete = 15 + 0.02 * pesoUnit * quantidade;
-        break;
-      case '3': case '4':
-        regiaoNome = 'Sul';
-        frete = 20 + 0.025 * pesoUnit * quantidade;
-        break;
-      case '5': case '6':
-        regiaoNome = 'Centro-Oeste/Norte';
-        frete = 30 + 0.03 * pesoUnit * quantidade;
-        break;
-      case '7': case '8': case '9':
-        regiaoNome = 'Nordeste';
-        frete = 25 + 0.028 * pesoUnit * quantidade;
-        break;
-      default:
-        regiaoNome = 'Região desconhecida';
-        frete = 35;
-    }
-
-    frete = frete.toFixed(2);
-    const totalProduto = precoUnit * quantidade;
-    const totalGeral = (totalProduto + parseFloat(frete)).toFixed(2);
-
-    const textoResumo = `
-      Modelo: ${modelo.charAt(0).toUpperCase() + modelo.slice(1)}<br />
-      Quantidade: ${quantidade}<br />
-      CEP: ${cep} (${regiaoNome})<br />
-      Frete estimado: R$ ${frete}<br />
-      Total produto: R$ ${totalProduto.toFixed(2)}<br />
-      <strong>Total geral: R$ ${totalGeral}</strong>
-    `;
-
-    resumoEl.innerHTML = textoResumo;
-    resumoEl.style.display = 'block';
-    whatsappBtn.style.display = 'block';
-
-    whatsappBtn.onclick = () => {
-      const mensagem = encodeURIComponent(
-        `Olá, quero fazer um pedido na MugShopp:\n` +
-        `Produto: ${produtoNome(produtoId)}\n` +
-        `Modelo: ${modelo.charAt(0).toUpperCase() + modelo.slice(1)}\n` +
-        `Quantidade: ${quantidade}\n` +
-        `CEP: ${cep}\n` +
-        `Frete estimado: R$ ${frete}\n` +
-        `Total: R$ ${totalGeral}\n` +
-        `Por favor, me envie mais detalhes sobre o pagamento e o prazo. Obrigada!`
-      );
-      const urlWhats = `https://wa.me/message/XJOCYNPNDO4DD1?text=${mensagem}`;
-      window.open(urlWhats, '_blank');
+    const precos = {
+      'quebra-cabeca': 50,
+      'almofada': 45,
+      'caneca-ceramica': 40,
+      'caneca-glitter': 60,
+      'caneca-base-glitter': 60
     };
-  }
 
-  function produtoNome(id) {
-    switch(id) {
-      case 'quebra-cabeca': return 'Quebra Cabeças MDF 12 Peças';
-      case 'almofada': return 'Almofada 20x20 cm';
-      case 'caneca-ceramica': return 'Caneca de Cerâmica';
-      default: return 'Produto';
+    const pesos = {
+      'quebra-cabeca': 300,
+      'almofada': 200,
+      'caneca-ceramica': 600,
+      'caneca-glitter': 600,
+      'caneca-base-glitter': 600
+    };
+
+    function validarCEP(cep) {
+      return /^\d{8}$/.test(cep);
     }
-  }
-</script>
+
+    function produtoNome(id) {
+      switch(id) {
+        case 'quebra-cabeca': return 'Quebra Cabeças MDF 12 Peças';
+        case 'almofada': return 'Almofada 20x20 cm';
+        case 'caneca-ceramica': return 'Caneca de Cerâmica';
+        case 'caneca-glitter': return 'Caneca com Glitter';
+        case 'caneca-base-glitter': return 'Caneca Base de Glitter';
+        default: return 'Produto';
+      }
+    }
+
+    function calcularFrete(produtoId) {
+      const quantidade = Number(document.getElementById(`quantidade-${produtoId}`).value);
+      const cep = document.getElementById(`cep-${produtoId}`).value.trim();
+      const modelo = document.getElementById(`modelo-${produtoId}`).value;
+      const precoUnit = precos[produtoId];
+      const pesoUnit = pesos[produtoId];
+      const resumoEl = document.getElementById(`resumo-${produtoId}`);
+      const whatsappBtn = document.getElementById(`whatsapp-${produtoId}`);
+
+      resumoEl.style.display = 'none';
+      whatsappBtn.style.display = 'none';
+
+      if (!validarCEP(cep)) {
+        alert('Por favor, insira um CEP válido com 8 dígitos numéricos.');
+        return;
+      }
+
+      if (quantidade < 1) {
+        alert('A quantidade deve ser pelo menos 1.');
+        return;
+      }
+
+      const regiaoDigit = cep[0];
+      let regiaoNome = '';
+      let frete = 0;
+
+      switch (regiaoDigit) {
+        case '0': case '1': case '2':
+          regiaoNome = 'Sudeste';
+          frete = 15 + 0.02 * pesoUnit * quantidade;
+          break;
+        case '3': case '4':
+          regiaoNome = 'Sul';
+          frete = 20 + 0.025 * pesoUnit * quantidade;
+          break;
+        case '5': case '6':
+          regiaoNome = 'Centro-Oeste/Norte';
+          frete = 30 + 0.03 * pesoUnit * quantidade;
+          break;
+        case '7': case '8': case '9':
+          regiaoNome = 'Nordeste';
+          frete = 25 + 0.028 * pesoUnit * quantidade;
+          break;
+        default:
+          regiaoNome = 'Região desconhecida';
+          frete = 35;
+      }
+
+      frete = frete.toFixed(2);
+      const totalProduto = precoUnit * quantidade;
+      const totalGeral = (totalProduto + parseFloat(frete)).toFixed(2);
+
+      const textoResumo = `
+        Modelo: ${modelo.charAt(0).toUpperCase() + modelo.slice(1)}<br />
+        Quantidade: ${quantidade}<br />
+        CEP: ${cep} (${regiaoNome})<br />
+        Frete estimado: R$ ${frete}<br />
+        Total produto: R$ ${totalProduto.toFixed(2)}<br />
+        <strong>Total geral: R$ ${totalGeral}</strong>
+      `;
+
+      resumoEl.innerHTML = textoResumo;
+      resumoEl.style.display = 'block';
+      whatsappBtn.style.display = 'block';
+
+      whatsappBtn.onclick = () => {
+        const mensagem = encodeURIComponent(
+          `Olá, quero fazer um pedido na MugShopp:\n` +
+          `Produto: ${produtoNome(produtoId)}\n` +
+          `Modelo: ${modelo.charAt(0).toUpperCase() + modelo.slice(1)}\n` +
+          `Quantidade: ${quantidade}\n` +
+          `CEP: ${cep}\n` +
+          `Frete estimado: R$ ${frete}\n` +
+          `Total: R$ ${totalGeral}\n` +
+          `Por favor, me envie mais detalhes sobre o pagamento e o prazo. Obrigada!`
+        );
+        const urlWhats = `https://wa.me/message/XJOCYNPNDO4DD1?text=${mensagem}`;
+        window.open(urlWhats, '_blank');
+      };
+    }
+  </script>
 </body>
 </html>
