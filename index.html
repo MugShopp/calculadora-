@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loja Simples - Pedido via WhatsApp</title>
+  <title>Loja MugShopp - Pedido via WhatsApp</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,103 +10,176 @@
       padding: 20px;
       color: #333;
     }
-    .produto {
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .coluna {
+      flex: 1;
+      min-width: 300px;
       background: #fff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 40px;
     }
     .galeria {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      display: flex;
+      overflow-x: auto;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     .galeria img {
-      width: 100%;
+      width: 100px;
       border-radius: 5px;
+      flex-shrink: 0;
     }
-    input, button {
-      padding: 10px;
+    label, select, input {
+      display: block;
       margin: 10px 0;
+      padding: 10px;
       width: 100%;
-      max-width: 300px;
       box-sizing: border-box;
     }
     button {
       background: #008CBA;
       color: white;
       border: none;
-      cursor: pointer;
+      padding: 10px;
+      width: 100%;
       border-radius: 5px;
+      cursor: pointer;
     }
     #resumo {
-      margin-top: 15px;
+      margin-top: 20px;
       background: #e8f5e9;
-      padding: 10px;
+      padding: 15px;
       border-radius: 8px;
       font-weight: bold;
     }
+    #btnWhats {
+      display: none;
+      margin-top: 15px;
+    }
+    .descricao {
+      font-size: 14px;
+      color: #555;
+      margin-top: -5px;
+    }
   </style>
 </head>
-<body>  <div class="produto">
-    <h2>Placa MDF A4 - R$ 17,00</h2>
-    <div class="galeria">
-      <img src="https://i.postimg.cc/y6yVjhZh/10-20250701-070735-0009.jpg">
-      <img src="https://i.postimg.cc/dtQJx72b/11-20250701-070735-0010.jpg">
-      <img src="https://i.postimg.cc/gkMGFY4n/12-20250701-070735-0011.jpg">
-      <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg">
-      <img src="https://i.postimg.cc/ncThFKVV/2-20250701-070735-0001.jpg">
-      <img src="https://i.postimg.cc/6p35y7Tr/3-20250701-070735-0002.jpg">
-      <img src="https://i.postimg.cc/t4MRPXVL/4-20250701-070735-0003.jpg">
-      <img src="https://i.postimg.cc/5tQ4SZBj/5-20250701-070735-0004.jpg">
-    </div><label>Quantidade:</label>
-<input type="number" id="qtd" value="1" min="1">
+<body>  <div class="container"><!-- Coluna 1: Azulejos -->
+<div class="coluna">
+  <h2>Azulejo 20x20 - R$ 35,00</h2>
+  <div class="galeria">
+    <img src="https://i.postimg.cc/y6yVjhZh/10-20250701-070735-0009.jpg">
+    <img src="https://i.postimg.cc/dtQJx72b/11-20250701-070735-0010.jpg">
+    <img src="https://i.postimg.cc/gkMGFY4n/12-20250701-070735-0011.jpg">
+    <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg">
+    <img src="https://i.postimg.cc/ncThFKVV/2-20250701-070735-0001.jpg">
+    <img src="https://i.postimg.cc/6p35y7Tr/3-20250701-070735-0002.jpg">
+    <img src="https://i.postimg.cc/t4MRPXVL/4-20250701-070735-0003.jpg">
+    <img src="https://i.postimg.cc/5tQ4SZBj/5-20250701-070735-0004.jpg">
+  </div>
+  <label>Escolha o modelo:</label>
+  <select id="modeloAzulejo">
+    <option>Modelo 1</option>
+    <option>Modelo 2</option>
+    <option>Modelo 3</option>
+    <option>Modelo 4</option>
+    <option>Modelo 5</option>
+    <option>Modelo 6</option>
+    <option>Modelo 7</option>
+    <option>Modelo 8</option>
+  </select>
+  <label>Quantidade:</label>
+  <input type="number" id="qtdAzulejo" value="1" min="1">
+  <label>CEP:</label>
+  <input type="text" id="cep">
+</div>
 
-<label>Digite seu CEP:</label>
-<input type="text" id="cep" placeholder="Ex: 12000-000">
+<!-- Coluna 2: Placas MDF -->
+<div class="coluna">
+  <h2>Placa MDF A4 - R$ 17,00</h2>
+  <div class="galeria">
+    <img src="https://i.postimg.cc/y6yVjhZh/10-20250701-070735-0009.jpg">
+    <img src="https://i.postimg.cc/dtQJx72b/11-20250701-070735-0010.jpg">
+    <img src="https://i.postimg.cc/gkMGFY4n/12-20250701-070735-0011.jpg">
+    <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg">
+    <img src="https://i.postimg.cc/ncThFKVV/2-20250701-070735-0001.jpg">
+    <img src="https://i.postimg.cc/6p35y7Tr/3-20250701-070735-0002.jpg">
+    <img src="https://i.postimg.cc/t4MRPXVL/4-20250701-070735-0003.jpg">
+    <img src="https://i.postimg.cc/5tQ4SZBj/5-20250701-070735-0004.jpg">
+  </div>
+  <label>Escolha o modelo:</label>
+  <select id="modeloMDF">
+    <option>Modelo 1</option>
+    <option>Modelo 2</option>
+    <option>Modelo 3</option>
+    <option>Modelo 4</option>
+    <option>Modelo 5</option>
+    <option>Modelo 6</option>
+    <option>Modelo 7</option>
+    <option>Modelo 8</option>
+  </select>
+  <label>Quantidade:</label>
+  <input type="number" id="qtdMDF" value="1" min="1">
+</div>
 
-<button onclick="calcular()">Calcular Frete</button>
+<!-- Coluna 3: Quebra-Cabeças -->
+<div class="coluna">
+  <h2>Quebra-Cabeça MDF</h2>
+  <p class="descricao">Material MDF 3mm. Pode ser personalizado com temas ou fotos.</p>
+  <div class="galeria">
+    <img src="https://i.postimg.cc/rssMz3w8/IMG-20250701-080723.jpg" title="12 Peças">
+    <img src="https://i.postimg.cc/Wp54j61N/file-00000000861861f789dc2154b724503d-1.png" title="6 Peças">
+  </div>
+  <label>Tipo:</label>
+  <select id="modeloPuzzle">
+    <option value="12">12 peças - R$ 24,00</option>
+    <option value="6">6 peças - R$ 12,00</option>
+  </select>
+  <label>Quantidade:</label>
+  <input type="number" id="qtdPuzzle" value="1" min="1">
+</div>
 
-<div id="resumo"></div>
-<button id="btnWhats" style="display:none" onclick="abrirWhats()">Pedir pelo WhatsApp</button>
+  </div><button onclick="calcularFrete()">Calcular Frete</button>
 
-  </div>  <script>
-    function calcular() {
-      const cep = (document.getElementById('cep').value || '').replace(/\D/g,'');
-      const qtd = parseInt(document.getElementById('qtd').value) || 1;
-      const produto = 'Placa MDF A4';
-      const preco = 17;
-
-      if (cep.length != 8) {
-        alert('Preencha um CEP válido de 8 dígitos');
+  <div id="resumo"></div>
+  <button id="btnWhats" onclick="enviarWhatsApp()">Pedir pelo WhatsApp</button>  <script>
+    function calcularFrete() {
+      const cep = document.getElementById('cep').value.replace(/\D/g, '');
+      if (cep.length !== 8) {
+        alert('CEP inválido');
         return;
       }
+      const qtdAzulejo = parseInt(document.getElementById('qtdAzulejo').value) || 0;
+      const qtdMDF = parseInt(document.getElementById('qtdMDF').value) || 0;
+      const qtdPuzzle = parseInt(document.getElementById('qtdPuzzle').value) || 0;
+      const tipoPuzzle = document.getElementById('modeloPuzzle').value;
 
-      let frete = 27;
-      if (cep >= '01000000' && cep <= '09999999') frete = 15;
-      else if (cep >= '10000000' && cep <= '19999999') frete = 18;
-      else if (cep >= '20000000' && cep <= '28999999') frete = 20;
-      else if (cep >= '80000000' && cep <= '99999999') frete = 24;
+      let precoPuzzle = tipoPuzzle === '12' ? 24 : 12;
 
-      const total = qtd * preco + frete;
+      const frete = calcularValorFrete(cep);
+      const total = (qtdAzulejo * 35) + (qtdMDF * 17) + (qtdPuzzle * precoPuzzle) + frete;
 
-      document.getElementById('resumo').innerHTML = `
-        <strong>Resumo do Pedido:</strong><br>
-        Produto: ${produto}<br>
-        Quantidade: ${qtd}<br>
-        Frete estimado: R$ ${frete.toFixed(2)}<br>
-        <strong>Total: R$ ${total.toFixed(2)}</strong>
-      `;
+      const resumo = `Resumo do Pedido:\nAzulejos: ${qtdAzulejo} unidade(s)\nPlacas MDF: ${qtdMDF} unidade(s)\nQuebra-Cabeça (${tipoPuzzle} peças): ${qtdPuzzle} unidade(s)\nFrete: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}`;
+
+      document.getElementById('resumo').innerText = resumo.replace(/\n/g, '\n');
       document.getElementById('btnWhats').style.display = 'block';
-
-      window.pedidoWhats = `Pedido via site MugShopp:\nProduto: ${produto}\nQuantidade: ${qtd}\nFrete estimado: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}\nCEP: ${cep}`;
+      window.msgWhats = encodeURIComponent(resumo + `\nCEP: ${cep}`);
     }
 
-    function abrirWhats() {
-      const msg = encodeURIComponent(window.pedidoWhats);
-      const url = `https://wa.me/5512992439101?text=${msg}`;
+    function calcularValorFrete(cep) {
+      if (cep >= '01000000' && cep <= '09999999') return 15;
+      if (cep >= '10000000' && cep <= '19999999') return 18;
+      if (cep >= '20000000' && cep <= '28999999') return 20;
+      if (cep >= '80000000' && cep <= '99999999') return 24;
+      return 27;
+    }
+
+    function enviarWhatsApp() {
+      const url = `https://wa.me/5512992439101?text=${window.msgWhats}`;
       window.open(url, '_blank');
     }
   </script></body>
