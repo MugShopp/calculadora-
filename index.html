@@ -2,152 +2,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MugShopp | Loja</title>
+  <title>Loja Simples - Pedido via WhatsApp</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f7f7f7; color: #333; }
-    header { background: #008CBA; color: white; text-align: center; padding: 20px; font-size: 24px; font-weight: bold; }
-    .container { padding: 20px; }
-    .produto { border: 1px solid #ccc; border-radius: 8px; background: white; margin-bottom: 20px; padding: 10px; }
-    .galeria { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }
-    .item { flex: 0 0 auto; width: 200px; margin-right: 10px; scroll-snap-align: start; text-align: center; }
-    .item img { width: 100%; border-radius: 8px; border: 1px solid #ccc; }
-    label, select, input[type=text], input[type=number] { display: block; margin-top: 10px; width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
-    button { margin-top: 15px; padding: 10px 20px; background: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-    #resumo, #formularioFinal, #confirmacaoPix { display: none; margin-top: 30px; padding: 20px; background: white; border-radius: 10px; border: 1px solid #ccc; }
-    #pedidoResumo { width: 100%; height: 120px; margin-top: 10px; padding: 10px; }
-    .pix-box { background: #eaf7ea; padding: 15px; margin-top: 10px; border: 1px dashed #4CAF50; border-radius: 6px; text-align: center; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+      color: #333;
+    }
+    .produto {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .galeria img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 300px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #008CBA;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #resumo {
+      margin-top: 15px;
+      background: #e8f5e9;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
   </style>
 </head>
-<body>
-  <header>Loja MugShopp</header>
-  <div class="container"><div class="produto">
-  <h3>Azulejo 20x20 - R$ 35,00</h3>
-  <div class="galeria">
-    <div class="item"><img src="https://i.postimg.cc/8PjjCyDs/mockup-01-1.png"><p>Estampa 1</p></div>
-    <div class="item"><img src="https://i.postimg.cc/tCw7nhCk/mockup-02-1.png"><p>Estampa 2</p></div>
-  </div>
-  <label>Escolha a estampa:</label>
-  <select id="modelo">
-    <option>Azulejo 20x20</option>
-    <option>Placa MDF A4</option>
-    <option>Quebra-Cabeça 12 pç</option>
-  </select>
-  <label>Quantidade:</label>
-  <input type="number" id="quantidade" min="1" value="1">
-  <label>CEP para calcular frete:</label>
-  <input type="text" id="cep" placeholder="Ex: 12000-000">
-  <button onclick="aoClicarCalcularFrete()">Calcular Frete</button>
-  <p id="freteInfo"></p>
-</div>
+<body>  <div class="produto">
+    <h2>Placa MDF A4 - R$ 17,00</h2>
+    <div class="galeria">
+      <img src="https://i.postimg.cc/y6yVjhZh/10-20250701-070735-0009.jpg">
+      <img src="https://i.postimg.cc/dtQJx72b/11-20250701-070735-0010.jpg">
+      <img src="https://i.postimg.cc/gkMGFY4n/12-20250701-070735-0011.jpg">
+      <img src="https://i.postimg.cc/VLzNPZ8H/13-20250701-070735-0012.jpg">
+      <img src="https://i.postimg.cc/ncThFKVV/2-20250701-070735-0001.jpg">
+      <img src="https://i.postimg.cc/6p35y7Tr/3-20250701-070735-0002.jpg">
+      <img src="https://i.postimg.cc/t4MRPXVL/4-20250701-070735-0003.jpg">
+      <img src="https://i.postimg.cc/5tQ4SZBj/5-20250701-070735-0004.jpg">
+    </div><label>Quantidade:</label>
+<input type="number" id="qtd" value="1" min="1">
 
-<div id="resumo">
-  <h3>Resumo do Pedido</h3>
-  <div id="resumoTexto"></div>
-  <button onclick="mostrarFormularioFinal()">Comprar</button>
-</div>
+<label>Digite seu CEP:</label>
+<input type="text" id="cep" placeholder="Ex: 12000-000">
 
-<div id="formularioFinal">
-  <h3>Finalizar Pedido</h3>
-  <form id="checkoutForm">
-    <label>Nome completo:</label>
-    <input type="text" id="nome" required>
-    <label>E-mail:</label>
-    <input type="text" id="email" required>
-    <label>Telefone:</label>
-    <input type="text" id="telefone" required>
-    <label>Endereço completo:</label>
-    <input type="text" id="endereco" required>
-    <input type="hidden" id="resumoPedido" name="resumoPedido">
-    <button type="button" onclick="enviarPedido()">Enviar Pedido</button>
-  </form>
-</div>
+<button onclick="calcular()">Calcular Frete</button>
 
-<div id="confirmacaoPix"></div>
+<div id="resumo"></div>
+<button id="btnWhats" style="display:none" onclick="abrirWhats()">Pedir pelo WhatsApp</button>
 
-  </div>
-  <script>
-    async function calcularFreteViaFrenet(cepDestino, peso, altura, largura, comprimento, quantidade, callback) {
-      const token = "07EC0ACFR9C99R464CRAB6CR0556C485E0FF";
-      const url = "https://api.frenet.com.br/shipping/quote";
-      const data = {
-        SellerCEP: "12071-600",
-        RecipientCEP: cepDestino.replace(/\D/g, ""),
-        ShipmentInvoiceValue: 35 * quantidade,
-        ShippingItemArray: [{ Height: altura, Length: comprimento, Width: largura, Weight: peso, Quantity: quantidade }]
-      };
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-          body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        if (result.ShippingSevicesArray && result.ShippingSevicesArray.length > 0) {
-          const servico = result.ShippingSevicesArray[0];
-          callback({ valorFrete: parseFloat(servico.ShippingPrice), nomeServico: servico.ServiceDescription });
-        } else callback(null);
-      } catch (error) {
-        console.error("Erro ao calcular frete:", error);
-        callback(null);
+  </div>  <script>
+    function calcular() {
+      const cep = (document.getElementById('cep').value || '').replace(/\D/g,'');
+      const qtd = parseInt(document.getElementById('qtd').value) || 1;
+      const produto = 'Placa MDF A4';
+      const preco = 17;
+
+      if (cep.length != 8) {
+        alert('Preencha um CEP válido de 8 dígitos');
+        return;
       }
-    }function aoClicarCalcularFrete() {
-  const cep = document.getElementById("cep").value;
-  const produto = document.getElementById("modelo").value;
-  const quantidade = parseInt(document.getElementById("quantidade").value) || 1;
-  let peso, altura, largura, comprimento;
-  switch (produto) {
-    case "Azulejo 20x20": peso = 0.4; altura = 3; largura = 22; comprimento = 22; break;
-    case "Placa MDF A4": peso = 0.3; altura = 2; largura = 25; comprimento = 35; break;
-    case "Quebra-Cabeça 12 pç": peso = 0.35; altura = 2; largura = 25; comprimento = 35; break;
-    default: alert("Produto inválido"); return;
-  }
-  calcularFreteViaFrenet(cep, peso, altura, largura, comprimento, quantidade, (resultado) => {
-    if (resultado) {
-      const total = (35 * quantidade + resultado.valorFrete).toFixed(2);
-      document.getElementById("freteInfo").innerHTML = `Frete: R$ ${resultado.valorFrete.toFixed(2)}<br>Total: R$ ${total}`;
-      document.getElementById("resumoTexto").innerHTML =
-        `<strong>Produto:</strong> ${produto}<br><strong>Quantidade:</strong> ${quantidade}<br><strong>Frete:</strong> R$ ${resultado.valorFrete.toFixed(2)}<br><strong>Total:</strong> R$ ${total}`;
-      document.getElementById("resumoPedido").value = document.getElementById("resumoTexto").innerText;
-      document.getElementById("resumo").style.display = "block";
-    } else {
-      document.getElementById("freteInfo").innerText = "Erro ao calcular frete.";
+
+      let frete = 27;
+      if (cep >= '01000000' && cep <= '09999999') frete = 15;
+      else if (cep >= '10000000' && cep <= '19999999') frete = 18;
+      else if (cep >= '20000000' && cep <= '28999999') frete = 20;
+      else if (cep >= '80000000' && cep <= '99999999') frete = 24;
+
+      const total = qtd * preco + frete;
+
+      document.getElementById('resumo').innerHTML = `
+        <strong>Resumo do Pedido:</strong><br>
+        Produto: ${produto}<br>
+        Quantidade: ${qtd}<br>
+        Frete estimado: R$ ${frete.toFixed(2)}<br>
+        <strong>Total: R$ ${total.toFixed(2)}</strong>
+      `;
+      document.getElementById('btnWhats').style.display = 'block';
+
+      window.pedidoWhats = `Pedido via site MugShopp:\nProduto: ${produto}\nQuantidade: ${qtd}\nFrete estimado: R$ ${frete.toFixed(2)}\nTotal: R$ ${total.toFixed(2)}\nCEP: ${cep}`;
     }
-  });
-}
 
-function mostrarFormularioFinal() {
-  document.getElementById("formularioFinal").style.display = "block";
-}
-
-function gerarNumeroPedido() {
-  return Math.floor(100000 + Math.random() * 900000);
-}
-
-function enviarPedido() {
-  const numero = gerarNumeroPedido();
-  const resumo = document.getElementById("resumoPedido").value;
-  const nome = document.getElementById("nome").value;
-  const email = document.getElementById("email").value;
-  const telefone = document.getElementById("telefone").value;
-  const endereco = document.getElementById("endereco").value;
-
-  const corpo = `Pedido: ${numero}\n\nResumo:\n${resumo}\n\nCliente:\n${nome}\nEmail: ${email}\nTelefone: ${telefone}\nEndereço: ${endereco}`;
-  const link = `mailto:vendas@mugshopp.com.br?subject=Pedido%20${numero}&body=${encodeURIComponent(corpo)}`;
-  window.open(link);
-
-  document.getElementById("checkoutForm").style.display = "none";
-  document.getElementById("confirmacaoPix").innerHTML = `
-    <h3>Pedido: ${numero}</h3>
-    <p>Obrigado pelo seu pedido!</p>
-    <div class="pix-box">
-      <p><strong>Chave Pix:</strong> (12) 99243-9101<br>Luciana A Pereira - Banco SumUp</p>
-      <button onclick="navigator.clipboard.writeText('12992439101')">Copiar chave Pix</button>
-    </div>
-    <p><em>O pedido só será confirmado após o envio do comprovante via WhatsApp.</em></p>
-  `;
-  document.getElementById("confirmacaoPix").style.display = "block";
-}
-
-  </script>
-</body>
+    function abrirWhats() {
+      const msg = encodeURIComponent(window.pedidoWhats);
+      const url = `https://wa.me/5512992439101?text=${msg}`;
+      window.open(url, '_blank');
+    }
+  </script></body>
 </html>
