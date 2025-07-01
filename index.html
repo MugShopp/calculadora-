@@ -63,10 +63,10 @@
       margin-bottom: 12px;
     }
     .carousel img {
-      width: 140px;
-      height: 140px;
+      width: 190px;
+      height: 190px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 18px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
     .product h3 {
@@ -118,6 +118,7 @@
       border-radius: 8px;
       display: none;
       text-align: left;
+      white-space: pre-line;
     }
     .whatsapp-btn {
       display: none;
@@ -141,8 +142,8 @@
         grid-template-columns: 1fr;
       }
       .carousel img {
-        width: 100px;
-        height: 100px;
+        width: 140px;
+        height: 140px;
       }
     }
   </style>
@@ -160,13 +161,76 @@
 
   <div class="container">
     <div class="product-grid">
-      <!-- Produto 1: Quebra-Cabeça -->
+
+      <!-- Produto 1: Placas MDF 20x20 -->
+      <div class="product" id="produto-placas-20x20">
+        <h3>Placas MDF 20x20 cm</h3>
+        <div class="carousel">
+          <img src="https://i.postimg.cc/fbZN29Wd/3-20250701-070735-0002.png" alt="Placas MDF 20x20" />
+        </div>
+        <p class="desc">Placas MDF 20x20 cm personalizadas. Preço: R$ 17,00</p>
+        <label for="modelo-placas-20x20">Modelo:</label>
+        <select id="modelo-placas-20x20">
+          <option value="foto">Foto</option>
+          <option value="tema">Tema</option>
+        </select>
+        <label for="quantidade-placas-20x20">Quantidade:</label>
+        <input type="number" id="quantidade-placas-20x20" min="1" value="1" />
+        <label for="cep-placas-20x20">CEP:</label>
+        <input type="text" id="cep-placas-20x20" placeholder="Ex: 12071600" maxlength="8" />
+        <button class="calc-frete" onclick="calcularFrete('placas-20x20')">Calcular Frete</button>
+        <div class="resumo" id="resumo-placas-20x20"></div>
+        <button class="whatsapp-btn" id="whatsapp-placas-20x20">Pedir no WhatsApp</button>
+      </div>
+
+      <!-- Produto 2: Placas MDF A4 -->
+      <div class="product" id="produto-placas-a4">
+        <h3>Placas MDF A4</h3>
+        <div class="carousel">
+          <img src="https://i.postimg.cc/fbZN29Wd/3-20250701-070735-0002.png" alt="Placas MDF A4" />
+        </div>
+        <p class="desc">Placas MDF tamanho A4 personalizadas. Preço: R$ 17,00</p>
+        <label for="modelo-placas-a4">Modelo:</label>
+        <select id="modelo-placas-a4">
+          <option value="foto">Foto</option>
+          <option value="tema">Tema</option>
+        </select>
+        <label for="quantidade-placas-a4">Quantidade:</label>
+        <input type="number" id="quantidade-placas-a4" min="1" value="1" />
+        <label for="cep-placas-a4">CEP:</label>
+        <input type="text" id="cep-placas-a4" placeholder="Ex: 12071600" maxlength="8" />
+        <button class="calc-frete" onclick="calcularFrete('placas-a4')">Calcular Frete</button>
+        <div class="resumo" id="resumo-placas-a4"></div>
+        <button class="whatsapp-btn" id="whatsapp-placas-a4">Pedir no WhatsApp</button>
+      </div>
+      <!-- Produto 3: Azulejo 20x20 -->
+      <div class="product" id="produto-azulejo">
+        <h3>Azulejo 20x20 cm</h3>
+        <div class="carousel">
+          <img src="https://i.postimg.cc/LX8MRF16/IMG-20250701-081641-1.png" alt="Azulejo 20x20" />
+        </div>
+        <p class="desc">Azulejo 20x20 cm personalizado. Preço: R$ 35,00</p>
+        <label for="modelo-azulejo">Modelo:</label>
+        <select id="modelo-azulejo">
+          <option value="foto">Foto</option>
+          <option value="tema">Tema</option>
+        </select>
+        <label for="quantidade-azulejo">Quantidade:</label>
+        <input type="number" id="quantidade-azulejo" min="1" value="1" />
+        <label for="cep-azulejo">CEP:</label>
+        <input type="text" id="cep-azulejo" placeholder="Ex: 12071600" maxlength="8" />
+        <button class="calc-frete" onclick="calcularFrete('azulejo')">Calcular Frete</button>
+        <div class="resumo" id="resumo-azulejo"></div>
+        <button class="whatsapp-btn" id="whatsapp-azulejo">Pedir no WhatsApp</button>
+      </div>
+
+      <!-- Produto 4: Quebra-Cabeças -->
       <div class="product" id="produto-quebra-cabeca">
         <h3>Quebra Cabeças MDF 12 Peças</h3>
         <div class="carousel">
-          <img src="https://i.postimg.cc/DZp3wprQ/IMG-20250701-080723.png" alt="Quebra Cabeças com foto" />
+          <img src="https://i.postimg.cc/DZp3wprQ/IMG-20250701-080723.png" alt="Quebra Cabeças MDF" />
         </div>
-        <p class="desc">Quebra-cabeças MDF 12 peças personalizado com foto ou tema. Preço: R$ 50,00</p>
+        <p class="desc">Quebra-cabeças MDF 12 peças personalizado. Preço: R$ 24,00</p>
         <label for="modelo-quebra-cabeca">Modelo:</label>
         <select id="modelo-quebra-cabeca">
           <option value="foto">Foto</option>
@@ -181,13 +245,13 @@
         <button class="whatsapp-btn" id="whatsapp-quebra-cabeca">Pedir no WhatsApp</button>
       </div>
 
-      <!-- Produto 2: Almofada -->
+      <!-- Produto 5: Almofada 20x20 -->
       <div class="product" id="produto-almofada">
         <h3>Almofada 20x20 cm</h3>
         <div class="carousel">
-          <img src="https://i.postimg.cc/wMt8y52C/IMG-20250701-082456.png" alt="Almofada com foto" />
+          <img src="https://i.postimg.cc/wMt8y52C/IMG-20250701-082456.png" alt="Almofada 20x20" />
         </div>
-        <p class="desc">Almofada 20x20 cm personalizada com foto ou tema. Preço: R$ 45,00</p>
+        <p class="desc">Almofada 20x20 cm personalizada. Preço: R$ 20,00</p>
         <label for="modelo-almofada">Modelo:</label>
         <select id="modelo-almofada">
           <option value="foto">Foto</option>
@@ -201,111 +265,25 @@
         <div class="resumo" id="resumo-almofada"></div>
         <button class="whatsapp-btn" id="whatsapp-almofada">Pedir no WhatsApp</button>
       </div>
-      <!-- Produto 3: Azulejos -->
-      <div class="product" id="produto-azulejos">
-        <h3>Azulejo 15x15 cm</h3>
-        <div class="carousel">
-          <img src="https://i.postimg.cc/LX8MRF16/IMG-20250701-081641-1.png" alt="Azulejos personalizados" />
-        </div>
-        <p class="desc">Azulejo 15x15 cm personalizado. Preço: R$ 35,00</p>
-        <label for="modelo-azulejos">Modelo:</label>
-        <select id="modelo-azulejos">
-          <option value="foto">Foto</option>
-          <option value="tema">Tema</option>
-        </select>
-        <label for="quantidade-azulejos">Quantidade:</label>
-        <input type="number" id="quantidade-azulejos" min="1" value="1" />
-        <label for="cep-azulejos">CEP:</label>
-        <input type="text" id="cep-azulejos" placeholder="Ex: 12071600" maxlength="8" />
-        <button class="calc-frete" onclick="calcularFrete('azulejos')">Calcular Frete</button>
-        <div class="resumo" id="resumo-azulejos"></div>
-        <button class="whatsapp-btn" id="whatsapp-azulejos">Pedir no WhatsApp</button>
-      </div>
-
-      <!-- Produto 4: Caneca de Cerâmica -->
-      <div class="product" id="produto-caneca-ceramica">
-        <h3>Caneca de Cerâmica</h3>
-        <div class="carousel">
-          <img src="https://i.postimg.cc/rpJLvwzP/IMG-20250701-082801.png" alt="Caneca personalizada" />
-        </div>
-        <p class="desc">Caneca cerâmica 325ml personalizada com foto ou tema. Preço: R$ 40,00</p>
-        <label for="modelo-caneca-ceramica">Modelo:</label>
-        <select id="modelo-caneca-ceramica">
-          <option value="foto">Foto</option>
-          <option value="tema">Tema</option>
-        </select>
-        <label for="quantidade-caneca-ceramica">Quantidade:</label>
-        <input type="number" id="quantidade-caneca-ceramica" min="1" value="1" />
-        <label for="cep-caneca-ceramica">CEP:</label>
-        <input type="text" id="cep-caneca-ceramica" placeholder="Ex: 12071600" maxlength="8" />
-        <button class="calc-frete" onclick="calcularFrete('caneca-ceramica')">Calcular Frete</button>
-        <div class="resumo" id="resumo-caneca-ceramica"></div>
-        <button class="whatsapp-btn" id="whatsapp-caneca-ceramica">Pedir no WhatsApp</button>
-      </div>
-
-      <!-- Produto 5: Caneca com Glitter -->
-      <div class="product" id="produto-caneca-glitter">
-        <h3>Caneca com Glitter</h3>
-        <div class="carousel">
-          <img src="https://i.postimg.cc/j5W4LjxJ/FB-IMG-1724412729186.jpg" alt="Caneca glitter rosa" />
-          <img src="https://i.postimg.cc/vZPNjj5M/FB-IMG-1724412712510.jpg" alt="Caneca glitter dourada" />
-        </div>
-        <p class="desc">Caneca de cerâmica com glitter (rosa ou dourado). Preço: R$ 60,00</p>
-        <label for="modelo-caneca-glitter">Modelo:</label>
-        <select id="modelo-caneca-glitter">
-          <option value="rosa">Rosa</option>
-          <option value="dourado">Dourado</option>
-        </select>
-        <label for="quantidade-caneca-glitter">Quantidade:</label>
-        <input type="number" id="quantidade-caneca-glitter" min="1" value="1" />
-        <label for="cep-caneca-glitter">CEP:</label>
-        <input type="text" id="cep-caneca-glitter" placeholder="Ex: 12071600" maxlength="8" />
-        <button class="calc-frete" onclick="calcularFrete('caneca-glitter')">Calcular Frete</button>
-        <div class="resumo" id="resumo-caneca-glitter"></div>
-        <button class="whatsapp-btn" id="whatsapp-caneca-glitter">Pedir no WhatsApp</button>
-      </div>
-
-      <!-- Produto 6: Caneca Base de Glitter -->
-      <div class="product" id="produto-caneca-base-glitter">
-        <h3>Caneca Base de Glitter</h3>
-        <div class="carousel">
-          <img src="https://i.postimg.cc/kXd4PGZy/FB-IMG-1724412705513.jpg" alt="Caneca base glitter rosa" />
-          <img src="https://i.postimg.cc/Pr1yFVdW/FB-IMG-1724412702130.jpg" alt="Caneca base glitter dourada" />
-        </div>
-        <p class="desc">Caneca com glitter somente na base. Rosa ou dourado. Preço: R$ 60,00</p>
-        <label for="modelo-caneca-base-glitter">Modelo:</label>
-        <select id="modelo-caneca-base-glitter">
-          <option value="rosa">Rosa</option>
-          <option value="dourado">Dourado</option>
-        </select>
-        <label for="quantidade-caneca-base-glitter">Quantidade:</label>
-        <input type="number" id="quantidade-caneca-base-glitter" min="1" value="1" />
-        <label for="cep-caneca-base-glitter">CEP:</label>
-        <input type="text" id="cep-caneca-base-glitter" placeholder="Ex: 12071600" maxlength="8" />
-        <button class="calc-frete" onclick="calcularFrete('caneca-base-glitter')">Calcular Frete</button>
-        <div class="resumo" id="resumo-caneca-base-glitter"></div>
-        <button class="whatsapp-btn" id="whatsapp-caneca-base-glitter">Pedir no WhatsApp</button>
-      </div>
-      </div> <!-- fecha product-grid -->
+    </div> <!-- fecha product-grid -->
   </div> <!-- fecha container -->
-
   <script>
     const precos = {
-      'quebra-cabeca': 50,
-      'almofada': 45,
-      'azulejos': 35,
-      'caneca-ceramica': 40,
-      'caneca-glitter': 60,
-      'caneca-base-glitter': 60
+      'placas-20x20': 17,
+      'placas-a4': 17,
+      'azulejo': 35,
+      'quebra-cabeca': 24,
+      'almofada': 20,
+      'caneca-ceramica': 32
     };
 
     const pesos = {
+      'placas-20x20': 300,
+      'placas-a4': 300,
+      'azulejo': 350,
       'quebra-cabeca': 300,
       'almofada': 200,
-      'azulejos': 250,
-      'caneca-ceramica': 600,
-      'caneca-glitter': 600,
-      'caneca-base-glitter': 600
+      'caneca-ceramica': 600
     };
 
     function validarCEP(cep) {
@@ -314,12 +292,12 @@
 
     function produtoNome(id) {
       switch(id) {
+        case 'placas-20x20': return 'Placas MDF 20x20 cm';
+        case 'placas-a4': return 'Placas MDF A4';
+        case 'azulejo': return 'Azulejo 20x20 cm';
         case 'quebra-cabeca': return 'Quebra Cabeças MDF 12 Peças';
         case 'almofada': return 'Almofada 20x20 cm';
-        case 'azulejos': return 'Azulejo 15x15 cm';
         case 'caneca-ceramica': return 'Caneca de Cerâmica';
-        case 'caneca-glitter': return 'Caneca com Glitter';
-        case 'caneca-base-glitter': return 'Caneca Base de Glitter';
         default: return 'Produto';
       }
     }
@@ -376,29 +354,23 @@
       const totalProduto = precoUnit * quantidade;
       const totalGeral = (totalProduto + parseFloat(frete)).toFixed(2);
 
-      const textoResumo = `
-        Modelo: ${modelo.charAt(0).toUpperCase() + modelo.slice(1)}<br />
-        Quantidade: ${quantidade}<br />
-        CEP: ${cep} (${regiaoNome})<br />
-        Frete estimado: R$ ${frete}<br />
-        Total produto: R$ ${totalProduto.toFixed(2)}<br />
-        <strong>Total geral: R$ ${totalGeral}</strong>
-      `;
+      // Texto exato para exibir e enviar no WhatsApp
+      const textoResumo =
+`Produto: ${produtoNome(produtoId)}
+Modelo: ${modelo.charAt(0).toUpperCase() + modelo.slice(1)}
+Quantidade: ${quantidade}
+CEP: ${cep} (${regiaoNome})
+Frete estimado: R$ ${frete}
+Total produto: R$ ${totalProduto.toFixed(2)}
+Total geral: R$ ${totalGeral}`;
 
-      resumoEl.innerHTML = textoResumo;
+      resumoEl.textContent = textoResumo;
       resumoEl.style.display = 'block';
       whatsappBtn.style.display = 'block';
 
       whatsappBtn.onclick = () => {
         const mensagem = encodeURIComponent(
-          `Olá, quero fazer um pedido na MugShopp:\n` +
-          `Produto: ${produtoNome(produtoId)}\n` +
-          `Modelo: ${modelo.charAt(0).toUpperCase() + modelo.slice(1)}\n` +
-          `Quantidade: ${quantidade}\n` +
-          `CEP: ${cep}\n` +
-          `Frete estimado: R$ ${frete}\n` +
-          `Total: R$ ${totalGeral}\n` +
-          `Por favor, me envie mais detalhes sobre o pagamento e o prazo. Obrigada!`
+          `Olá, quero fazer um pedido na MugShopp:\n${textoResumo}\nPor favor, me envie mais detalhes sobre o pagamento e o prazo. Obrigada!`
         );
         const urlWhats = `https://wa.me/message/XJOCYNPNDO4DD1?text=${mensagem}`;
         window.open(urlWhats, '_blank');
