@@ -1,143 +1,124 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculadora de Frete - MugShopp</title>
+  <meta charset="UTF-8">
+  <title>Calculadora de Frete e Total - Produtos Planos</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f1faff;
-      margin: 0;
-      padding: 40px 20px;
-      text-align: center;
-      color: #222;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      color: #333;
     }
-
-    h1 {
-      color: #008cba;
-      margin-bottom: 10px;
+    h2 {
+      color: #004aad;
     }
-
-    .container {
-      max-width: 480px;
-      margin: auto;
-      background: white;
-      border-radius: 10px;
-      padding: 30px 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    select, input {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
+    label, select, input {
+      display: block;
       margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      padding: 12px 24px;
       font-size: 16px;
-      background: #008cba;
+    }
+    input[type="number"] {
+      width: 60px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #004aad;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
-
-    button:hover {
-      background: #0074a3;
-    }
-
     .resultado {
       margin-top: 20px;
-      text-align: left;
-      font-size: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      background: #e4f0ff;
+      padding: 15px;
+      border-radius: 8px;
     }
-
-    .resultado p {
-      margin: 8px 0;
+    .produto {
+      margin-bottom: 12px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Calcule seu Frete</h1>
 
-    <label for="produto">Escolha um produto:</label>
-    <select id="produto">
-      <option value="azulejo">Azulejo 15x15 - R$30,00</option>
-      <option value="placa">Placa MDF A4 - R$17,00</option>
-      <option value="quebra12">Quebra-Cabeça 12 Peças - R$24,00</option>
-      <option value="quebra6">Quebra-Cabeça 6 Peças - R$12,00</option>
-      <option value="toalhinha">Toalhinha Lavabinho - R$12,00</option>
-      <option value="almofada">Mini Almofada 20x20 - R$25,00</option>
-    </select>
+  <h2>🧾 Calculadora de Frete e Total</h2>
 
-    <label for="quantidade">Quantidade:</label>
-    <input type="number" id="quantidade" min="1" value="1" />
+  <form id="formulario">
+    <div class="produto">
+      <label>Azulejo 10x10 (R$15,00) - <input type="number" min="0" name="az10" value="0"> unidade(s)</label>
+    </div>
+    <div class="produto">
+      <label>Azulejo 15x15 (R$30,00) - <input type="number" min="0" name="az15" value="0"> unidade(s)</label>
+    </div>
+    <div class="produto">
+      <label>Azulejo 20x20 (R$35,00) - <input type="number" min="0" name="az20" value="0"> unidade(s)</label>
+    </div>
+    <div class="produto">
+      <label>Placa MDF A4 (R$17,00) - <input type="number" min="0" name="mdfA4" value="0"> unidade(s)</label>
+    </div>
+    <div class="produto">
+      <label>Quebra-Cabeça 12 peças (R$24,00) - <input type="number" min="0" name="qc12" value="0"> unidade(s)</label>
+    </div>
+    <div class="produto">
+      <label>Quebra-Cabeça 6 peças (R$12,00) - <input type="number" min="0" name="qc6" value="0"> unidade(s)</label>
+    </div>
 
-    <label for="cep">Digite seu CEP:</label>
-    <input type="text" id="cep" placeholder="Ex: 01001-000" maxlength="9"/>
+    <label>CEP de destino: <input type="text" id="cep" maxlength="9" placeholder="Ex: 12170-000" required></label>
 
-    <button onclick="calcularFrete()">Calcular Frete</button>
+    <button type="submit">Calcular Total</button>
+  </form>
 
-    <div class="resultado" id="resultado"></div>
-  </div>
+  <div class="resultado" id="resultado"></div>
 
   <script>
     const produtos = {
-      azulejo: { nome: "Azulejo 15x15", preco: 30.00, peso: 0.4 },
-      placa: { nome: "Placa MDF A4", preco: 17.00, peso: 0.3 },
-      quebra12: { nome: "Quebra-Cabeça 12 Peças", preco: 24.00, peso: 0.2 },
-      quebra6: { nome: "Quebra-Cabeça 6 Peças", preco: 12.00, peso: 0.2 },
-      toalhinha: { nome: "Toalhinha Lavabinho", preco: 12.00, peso: 0.1 },
-      almofada: { nome: "Mini Almofada 20x20", preco: 25.00, peso: 0.2 }
+      az10:  { nome: 'Azulejo 10x10',    preco: 15.00, peso: 0.200 },
+      az15:  { nome: 'Azulejo 15x15',    preco: 30.00, peso: 0.400 },
+      az20:  { nome: 'Azulejo 20x20',    preco: 35.00, peso: 0.500 },
+      mdfA4: { nome: 'Placa MDF A4',     preco: 17.00, peso: 0.300 },
+      qc12:  { nome: 'Quebra-Cabeça 12p',preco: 24.00, peso: 0.200 },
+      qc6:   { nome: 'Quebra-Cabeça 6p', preco: 12.00, peso: 0.200 }
     };
 
-    function calcularFrete() {
-      const produtoSelecionado = document.getElementById("produto").value;
-      const cep = document.getElementById("cep").value.trim();
-      const quantidade = parseInt(document.getElementById("quantidade").value);
-      const resultado = document.getElementById("resultado");
-
-      if (!cep.match(/^\d{5}-?\d{3}$/)) {
-        resultado.innerHTML = "<p style='color:red;'>Digite um CEP válido.</p>";
-        return;
-      }
-
-      if (quantidade <= 0) {
-        resultado.innerHTML = "<p style='color:red;'>Escolha uma quantidade válida.</p>";
-        return;
-      }
-
-      const produto = produtos[produtoSelecionado];
-      const precoTotal = produto.preco * quantidade;
-      const pesoTotal = produto.peso * quantidade;
-
-      // Simulação de frete com base no peso total
-      let frete = 15.90;
-      if (pesoTotal <= 0.2) frete = 13.90;
-      if (pesoTotal > 0.2 && pesoTotal <= 0.4) frete = 16.90;
-      if (pesoTotal > 0.4 && pesoTotal <= 0.8) frete = 18.90;
-      if (pesoTotal > 0.8 && pesoTotal <= 1.2) frete = 21.90;
-      if (pesoTotal > 1.2) frete = 24.90;
-
-      const prazo = "2 a 5 dias úteis";
-
-      resultado.innerHTML = `
-        <p><strong>Produto:</strong> ${produto.nome}</p>
-        <p><strong>Quantidade:</strong> ${quantidade}</p>
-        <p><strong>Valor do produto:</strong> R$ ${precoTotal.toFixed(2)}</p>
-        <p><strong>Peso total:</strong> ${pesoTotal.toFixed(2)} kg</p>
-        <p><strong>Frete estimado (Jadlog):</strong> R$ ${frete.toFixed(2)}</p>
-        <p><strong>Prazo de entrega:</strong> ${prazo}</p>
-        <p><strong>Total com frete:</strong> R$ ${(precoTotal + frete).toFixed(2)}</p>
-      `;
+    function calcularFrete(pesoTotal) {
+      if (pesoTotal <= 0.2) return 13.90;
+      if (pesoTotal <= 0.4) return 16.90;
+      if (pesoTotal <= 0.8) return 19.90;
+      if (pesoTotal <= 1.2) return 24.90;
+      if (pesoTotal <= 1.6) return 27.90;
+      if (pesoTotal <= 2.0) return 29.90;
+      if (pesoTotal <= 2.5) return 33.90;
+      return 39.90;
     }
+
+    document.getElementById('formulario').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let totalProdutos = 0;
+      let pesoTotal = 0;
+
+      for (const chave in produtos) {
+        const quantidade = parseInt(this[chave].value) || 0;
+        totalProdutos += quantidade * produtos[chave].preco;
+        pesoTotal += quantidade * produtos[chave].peso;
+      }
+
+      const frete = calcularFrete(pesoTotal);
+      const total = totalProdutos + frete;
+
+      document.getElementById('resultado').innerHTML = `
+        🧱 Valor dos produtos: R$ ${totalProdutos.toFixed(2)}<br>
+        🚚 Frete estimado: R$ ${frete.toFixed(2)}<br>
+        💰 Total geral: <strong>R$ ${total.toFixed(2)}</strong><br>
+        <small>Simulação baseada em entrega via Jadlog.</small>
+      `;
+    });
   </script>
+
 </body>
 </html>
